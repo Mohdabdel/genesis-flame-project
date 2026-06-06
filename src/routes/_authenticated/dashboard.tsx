@@ -7,7 +7,6 @@ import {
   LayoutDashboard,
   ClipboardList,
   FolderKanban,
-  GraduationCap,
   Settings,
   Menu,
   LogOut,
@@ -26,11 +25,10 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 const navItems = [
   { label: "لوحة التحكم", icon: LayoutDashboard, href: "/dashboard" },
   { label: "محرك الانتقال", icon: Compass, href: "/dashboard/engine" },
-  { label: "ورشة المخطّط", icon: Network, href: "/dashboard/planner" },
+  { label: "ورشة المخطط التأهيلي", icon: Network, href: "/dashboard/planner" },
   { label: "المراقبة الميدانية", icon: Activity, href: "/dashboard/field" },
-  { label: "التقييمات", icon: ClipboardList, href: "/dashboard/assessments" },
-  { label: "المشاريع", icon: FolderKanban, href: "/dashboard/projects" },
-  { label: "التدريب", icon: GraduationCap, href: "/dashboard/training" },
+  { label: "محطات الجاهزية والسيناريوهات", icon: ClipboardList, href: "/dashboard/assessments" },
+  { label: "وثائق الانتقال المعتمدة (ITP)", icon: FolderKanban, href: "/dashboard/projects" },
   { label: "الإعدادات", icon: Settings, href: "/dashboard/settings" },
 ];
 
