@@ -18,6 +18,7 @@ import { Route as AuthenticatedDashboardTrainingRouteImport } from './routes/_au
 import { Route as AuthenticatedDashboardSettingsRouteImport } from './routes/_authenticated/dashboard.settings'
 import { Route as AuthenticatedDashboardProjectsRouteImport } from './routes/_authenticated/dashboard.projects'
 import { Route as AuthenticatedDashboardPlannerRouteImport } from './routes/_authenticated/dashboard.planner'
+import { Route as AuthenticatedDashboardFieldRouteImport } from './routes/_authenticated/dashboard.field'
 import { Route as AuthenticatedDashboardEngineRouteImport } from './routes/_authenticated/dashboard.engine'
 import { Route as AuthenticatedDashboardAssessmentsRouteImport } from './routes/_authenticated/dashboard.assessments'
 
@@ -70,6 +71,12 @@ const AuthenticatedDashboardPlannerRoute =
     path: '/planner',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardFieldRoute =
+  AuthenticatedDashboardFieldRouteImport.update({
+    id: '/field',
+    path: '/field',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 const AuthenticatedDashboardEngineRoute =
   AuthenticatedDashboardEngineRouteImport.update({
     id: '/engine',
@@ -89,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/dashboard/assessments': typeof AuthenticatedDashboardAssessmentsRoute
   '/dashboard/engine': typeof AuthenticatedDashboardEngineRoute
+  '/dashboard/field': typeof AuthenticatedDashboardFieldRoute
   '/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/dashboard/projects': typeof AuthenticatedDashboardProjectsRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
@@ -100,6 +108,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/dashboard/assessments': typeof AuthenticatedDashboardAssessmentsRoute
   '/dashboard/engine': typeof AuthenticatedDashboardEngineRoute
+  '/dashboard/field': typeof AuthenticatedDashboardFieldRoute
   '/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/dashboard/projects': typeof AuthenticatedDashboardProjectsRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
@@ -114,6 +123,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/_authenticated/dashboard/assessments': typeof AuthenticatedDashboardAssessmentsRoute
   '/_authenticated/dashboard/engine': typeof AuthenticatedDashboardEngineRoute
+  '/_authenticated/dashboard/field': typeof AuthenticatedDashboardFieldRoute
   '/_authenticated/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/_authenticated/dashboard/projects': typeof AuthenticatedDashboardProjectsRoute
   '/_authenticated/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
@@ -128,6 +138,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/dashboard/assessments'
     | '/dashboard/engine'
+    | '/dashboard/field'
     | '/dashboard/planner'
     | '/dashboard/projects'
     | '/dashboard/settings'
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard/assessments'
     | '/dashboard/engine'
+    | '/dashboard/field'
     | '/dashboard/planner'
     | '/dashboard/projects'
     | '/dashboard/settings'
@@ -152,6 +164,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/dashboard/assessments'
     | '/_authenticated/dashboard/engine'
+    | '/_authenticated/dashboard/field'
     | '/_authenticated/dashboard/planner'
     | '/_authenticated/dashboard/projects'
     | '/_authenticated/dashboard/settings'
@@ -230,6 +243,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardPlannerRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/field': {
+      id: '/_authenticated/dashboard/field'
+      path: '/field'
+      fullPath: '/dashboard/field'
+      preLoaderRoute: typeof AuthenticatedDashboardFieldRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
     '/_authenticated/dashboard/engine': {
       id: '/_authenticated/dashboard/engine'
       path: '/engine'
@@ -250,6 +270,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardAssessmentsRoute: typeof AuthenticatedDashboardAssessmentsRoute
   AuthenticatedDashboardEngineRoute: typeof AuthenticatedDashboardEngineRoute
+  AuthenticatedDashboardFieldRoute: typeof AuthenticatedDashboardFieldRoute
   AuthenticatedDashboardPlannerRoute: typeof AuthenticatedDashboardPlannerRoute
   AuthenticatedDashboardProjectsRoute: typeof AuthenticatedDashboardProjectsRoute
   AuthenticatedDashboardSettingsRoute: typeof AuthenticatedDashboardSettingsRoute
@@ -262,6 +283,7 @@ const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
     AuthenticatedDashboardAssessmentsRoute:
       AuthenticatedDashboardAssessmentsRoute,
     AuthenticatedDashboardEngineRoute: AuthenticatedDashboardEngineRoute,
+    AuthenticatedDashboardFieldRoute: AuthenticatedDashboardFieldRoute,
     AuthenticatedDashboardPlannerRoute: AuthenticatedDashboardPlannerRoute,
     AuthenticatedDashboardProjectsRoute: AuthenticatedDashboardProjectsRoute,
     AuthenticatedDashboardSettingsRoute: AuthenticatedDashboardSettingsRoute,
@@ -293,3 +315,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
