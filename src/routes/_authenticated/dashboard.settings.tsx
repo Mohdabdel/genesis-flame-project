@@ -61,14 +61,14 @@ function SettingsPage() {
     <div className="space-y-6 max-w-2xl">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">إعدادات المؤسسة والصلاحيات</h1>
-        <p className="text-muted-foreground">إدارة الملف الشخصي وبيانات المؤسسة وصلاحيات الفريق.</p>
+        <p className="text-muted-foreground">إدارة ملفك المهني وبيانات المؤسسة وصلاحيات استخدام المنصة.</p>
       </div>
 
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <User className="h-5 w-5 text-primary" />
-            الملف الشخصي
+            الملف المهني
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -80,7 +80,7 @@ function SettingsPage() {
             </Avatar>
             <div>
               <p className="font-medium">{profile?.full_name || "المستخدم"}</p>
-              <p className="text-sm text-muted-foreground">{profile?.organizations?.name || "بدون مؤسسة"}</p>
+              <p className="text-sm text-muted-foreground">{profile?.organizations?.name || "غير مرتبط بمؤسسة"}</p>
             </div>
           </div>
 
@@ -95,12 +95,12 @@ function SettingsPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="jobTitle">المسمى الوظيفي</Label>
+              <Label htmlFor="jobTitle">الدور المهني</Label>
               <Input
                 id="jobTitle"
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
-                placeholder="مشرف تربوي"
+                placeholder="مشرف تربوي / أخصائي انتقال"
               />
             </div>
             <div className="space-y-2">
@@ -160,7 +160,7 @@ function SettingsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Building2 className="h-5 w-5 text-primary" />
-              إنشاء مؤسسة
+            إنشاء مؤسسة انتقالية
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -205,19 +205,19 @@ function CreateOrgForm() {
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-muted-foreground">أنشئ مؤسستك للبدء باستخدام المنصة</p>
+      <p className="text-sm text-muted-foreground">أنشئ مؤسسة لاستخدام مسار همم مع المتعلمين</p>
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label>اسم المؤسسة</Label>
           <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="مركز همم للتأهيل الانتقالي" />
         </div>
         <div className="space-y-2">
-          <Label>المجال</Label>
+          <Label>نوع المؤسسة</Label>
           <Input value={industry} onChange={(e) => setIndustry(e.target.value)} placeholder="التأهيل الانتقالي وخدمات ذوي الإعاقة" />
         </div>
         <div className="space-y-2 sm:col-span-2">
           <Label>حجم المؤسسة</Label>
-          <Input value={size} onChange={(e) => setSize(e.target.value)} placeholder="50-200 عضو فريق" />
+          <Input value={size} onChange={(e) => setSize(e.target.value)} placeholder="50–200 عضو فريق" />
         </div>
       </div>
       <Button
