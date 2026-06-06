@@ -142,7 +142,7 @@ function DashboardHome() {
         <div className="flex gap-2 flex-wrap">
           <Link to="/dashboard/planner"><Button variant="outline" size="sm" className="gap-2"><Compass className="h-4 w-4" /> اختر متعلماً افتراضياً</Button></Link>
           <Link to="/dashboard/field"><Button variant="outline" size="sm" className="gap-2"><Activity className="h-4 w-4" /> سجّل تتبّع ميداني</Button></Link>
-          <Link to="/dashboard/engine"><Button size="sm" className="gap-2"><Sparkles className="h-4 w-4" /> افتح محرك الانتقال</Button></Link>
+          <Link to="/dashboard/engine"><Button size="sm" className="gap-2"><Sparkles className="h-4 w-4" /> افتح بوابة الانتقال</Button></Link>
         </div>
       </div>
 

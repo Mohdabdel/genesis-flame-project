@@ -34,7 +34,7 @@ function AuthPage() {
               مسارهمم
             </h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              محرك الانتقال الرقمي
+              منصة مسار همم الانتقالية
             </p>
           </Link>
         </div>
