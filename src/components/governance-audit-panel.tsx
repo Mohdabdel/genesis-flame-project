@@ -92,10 +92,10 @@ export function GovernanceAuditPanel({ learnerId }: { learnerId?: string | numbe
     return (
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2"><Gavel className="h-5 w-5 text-primary" />لوحة التدقيق وحوكمة الخطة</CardTitle>
+          <CardTitle className="flex items-center gap-2"><Gavel className="h-5 w-5 text-primary" />لوحة التدقيق وحوكمة الخطة الانتقالية</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">اختر متعلماً لتشغيل محرك التدقيق التنبؤي (NTACT:C Predictors).</p>
+          <p className="text-sm text-muted-foreground">اختر متعلماً لتشغيل محرك التدقيق التنبؤي عبر متنبئات النجاح المعتمدة دولياً.</p>
         </CardContent>
       </Card>
     );
@@ -123,24 +123,24 @@ export function GovernanceAuditPanel({ learnerId }: { learnerId?: string | numbe
         findings.push({
           code: "ALERT_PRED_00",
           severity: "critical",
-          title_ar: "لا توجد أهداف فردية نشطة",
-          detail_ar: `المتعلم في نافذة الانتقال الحرجة (${Math.floor(age!)} سنة) دون أي هدف فردي مشتق حوكمياً نشط. ابدأ ببناء خطة قائمة على المؤشرات التنبؤية للنجاح (متنبئات NTACT:C).`,
-          predictor_en: "NTACT:C Success Predictors — Active Governed Objectives coverage",
+          title_ar: "لا توجد أهداف فردية ضمن الخطة الانتقالية نشطة",
+          detail_ar: `المتعلم في نافذة الانتقال (${Math.floor(age!)} سنة) دون أي هدف فردي نشط ضمن الخطة الانتقالية. ابدأ ببناء خطة قائمة على مؤشرات الجاهزية وشواهد الأداء.`,
+          predictor_en: "Success Predictors — Active Individual Objectives coverage",
         });
       } else {
         if (communityCount === 0) {
           findings.push({
             code: "ALERT_PRED_04",
             severity: "critical",
-            title_ar: "اعتماد مفرط على البيئات الصفّية والمحاكاة النظرية",
-            detail_ar: `[ALERT_PRED_04]: تم رصد اعتماد مفرط على البيئات الصفية والمحاكاة النظرية داخل نافذة الانتقال الحرجة (+16). الخطة الحالية تفتقر لوسوم البيئة الحقيقية (CBI). الإجراء المطلوب: ربط المهارة فوراً بسيناريو ميداني نشط. (${total} أهداف صفّية بدون CBI)`,
-            predictor_en: "NTACT:C — Community-Based Instruction (CBI) absent",
+            title_ar: "اعتماد مفرط على البيئات الصفّية بدلاً من السيناريوهات الواقعية",
+            detail_ar: `[ALERT_PRED_04]: تم رصد اعتماد مفرط على البيئات الصفية داخل نافذة الانتقال (+16). الخطة الحالية تفتقر إلى سيناريوهات واقعية في المجتمع. الإجراء المطلوب: ربط الأهداف الفردية بسيناريوهات واقعية. (${total} أهداف صفّية)`,
+            predictor_en: "Success Predictors — Community-Based Instruction (CBI) absent",
           });
         } else if (communityCount / total < 0.3) {
           findings.push({
             code: "ALERT_PRED_04B",
             severity: "warning",
-            title_ar: "تغطية محدودة للسيناريوهات المجتمعية",
+            title_ar: "تغطية محدودة للسيناريوهات الواقعية في المجتمع",
             detail_ar: `${communityCount}/${total} أهداف فقط في بيئات مجتمعية (${Math.round((communityCount / total) * 100)}%). الموصى به ≥ 30%.`,
             predictor_en: "Community CBI coverage below threshold",
           });
@@ -150,26 +150,26 @@ export function GovernanceAuditPanel({ learnerId }: { learnerId?: string | numbe
             code: "ALERT_PRED_01",
             severity: "critical",
             title_ar: "غياب خبرة العمل المأجور",
-            detail_ar: "لا توجد أهداف ضمن سيناريوهات عمل/توظيف. خبرة العمل المأجور (Paid Work Experience) من أقوى متنبئات النجاح لـ NTACT:C بالتوظيف التنافسي بعد المدرسة.",
-            predictor_en: "NTACT:C Success Predictor — Paid Work Experience missing",
+            detail_ar: "لا توجد أهداف ضمن سيناريوهات عمل/توظيف واقعية. خبرة العمل المأجور من أقوى متنبئات النجاح للتوظيف التنافسي بعد المدرسة.",
+            predictor_en: "Success Predictor — Paid Work Experience missing",
           });
         }
         if (!destCounts["D1"]) {
           findings.push({
             code: "ALERT_PRED_02",
             severity: "warning",
-            title_ar: "لا أهداف في وجهة العمل (D1)",
-            detail_ar: "نافذة الانتقال نشطة دون أي أهداف مرتبطة بوجهة الرشد الثابتة للعمل والإنتاج (D1). راجع التعاون بين الوكالات (Interagency Collaboration).",
-            predictor_en: "NTACT:C — Interagency Collaboration / D1 coverage",
+            title_ar: "لا أهداف في مجال العمل والمشاركة الاقتصادية (D1)",
+            detail_ar: "نافذة الانتقال نشطة دون أي أهداف فردية مرتبطة بمجال العمل والمشاركة الاقتصادية (D1). راجع التعاون بين الجهات.",
+            predictor_en: "Success Predictor — Interagency Collaboration / D1 coverage",
           });
         }
         if (!destCounts["D3"] && !destCounts["D4"]) {
           findings.push({
             code: "ALERT_PRED_03",
             severity: "warning",
-            title_ar: "غياب أهداف المشاركة المجتمعية والسكن",
-            detail_ar: "لا توجد أهداف في وجهتَي الرشد الثابتة للسكن المستقل (D3) أو المشاركة المدنية (D4). الانتقال الشامل يتطلب تغطية متعددة الوجهات.",
-            predictor_en: "NTACT:C — Independent Living & Community Participation coverage",
+            title_ar: "غياب أهداف المشاركة المجتمعية وتقرير المصير",
+            detail_ar: "لا توجد أهداف في مجالَي المشاركة المجتمعية والانتماء (D3) أو تقرير المصير والاختيار الشخصي (D4). الانتقال الشامل يتطلب تغطية متعددة المجالات.",
+            predictor_en: "Success Predictor — Community Participation & Self-Determination",
           });
         }
       }
@@ -178,7 +178,7 @@ export function GovernanceAuditPanel({ learnerId }: { learnerId?: string | numbe
         code: "ALERT_PRED_PRE",
         severity: "info",
         title_ar: "تهيئة مبكرة موصى بها",
-        detail_ar: `العمر ${Math.floor(age)} سنة — يُنصح ببدء إدخال سيناريوهات مجتمعية تمهيداً لنافذة الانتقال في 16.`,
+        detail_ar: `العمر ${Math.floor(age)} سنة — يُنصح ببدء إدخال سيناريوهات واقعية في المجتمع تمهيداً لنافذة الانتقال في 16.`,
         predictor_en: "Pre-transition CBI seeding",
       });
     }
@@ -189,22 +189,22 @@ export function GovernanceAuditPanel({ learnerId }: { learnerId?: string | numbe
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Gavel className="h-5 w-5 text-primary" />
-          لوحة التدقيق وحوكمة الخطة
-          <span className="text-xs font-normal text-muted-foreground mr-2" dir="ltr">Governance & Audit Panel</span>
+          لوحة التدقيق وحوكمة الخطة الانتقالية
+          <span className="text-xs font-normal text-muted-foreground mr-2" dir="ltr">Transition Plan Governance & Audit</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
         {isLoading && (
           <div className="flex items-center justify-center py-6 text-muted-foreground text-sm">
-            <Loader2 className="h-4 w-4 animate-spin ml-2" /> جارٍ تحليل الخطة عبر المؤشرات التنبؤية للنجاح (متنبئات NTACT:C)...
+            <Loader2 className="h-4 w-4 animate-spin ml-2" /> جارٍ تحليل الخطة الانتقالية عبر متنبئات النجاح المعتمدة دولياً...
           </div>
         )}
         {!isLoading && findings.length === 0 && (
           <div className="flex items-start gap-3 rounded-lg border border-emerald-500/40 bg-emerald-500/5 p-3">
             <ShieldCheck className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
             <div>
-              <p className="font-semibold text-sm">الخطة تستوفي المؤشرات التنبؤية للنجاح (متنبئات NTACT:C) القائمة على الدليل</p>
-              <p className="text-xs text-muted-foreground mt-0.5">لا توجد علامات حوكمية مفعّلة حالياً.</p>
+              <p className="font-semibold text-sm">الخطة الانتقالية تستوفي متنبئات النجاح المعتمدة دولياً</p>
+              <p className="text-xs text-muted-foreground mt-0.5">لا توجد مؤشرات حماية مفعّلة حالياً.</p>
             </div>
           </div>
         )}
