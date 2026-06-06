@@ -182,7 +182,7 @@ function EnginePage() {
       </div>
 
       {/* Dignity Guardrail banner */}
-      {learnerId && (
+      {learnerId && inTransitionWindow && (
         <Card className={guardrailActive ? "border-2 border-destructive bg-destructive/5" : "border-2 border-emerald-500/40 bg-emerald-500/5"}>
           <CardContent className="flex items-start gap-3 py-4">
             {guardrailActive ? (
@@ -243,53 +243,70 @@ function EnginePage() {
         </CardContent>
       </Card>
 
-      {/* 5 Destinations cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-        {destLoading && Array.from({ length: 5 }).map((_, i) => (
-          <Skeleton key={i} className="h-40 w-full" />
-        ))}
-        {destinations?.map((d: any) => {
-          const score = drc?.[d.destination_id] ?? 0;
-          const tone = drcTone(score);
-          return (
-            <Card
-              key={d.destination_id}
-              className={`border-2 ${tone.border} bg-gradient-to-br ${tone.glow} to-transparent`}
-            >
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono opacity-70">{d.destination_id}</span>
-                  {learnerId && d.destination_id === "D5" && score < 0.5 && (
-                    <Badge variant="destructive" className="text-[10px]">حرج</Badge>
-                  )}
-                </div>
-                <CardTitle className="text-base leading-tight">{d.name_ar}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center gap-3">
-                  {drcLoading && learnerId ? (
-                    <Skeleton className="h-20 w-20 rounded-full" />
-                  ) : (
-                    <DRCRing value={learnerId ? score : 0} />
-                  )}
-                  <div className="flex-1 space-y-1">
-                    <div className="h-2 rounded-full bg-muted overflow-hidden">
-                      <div
-                        className={`h-full ${tone.bar} transition-all duration-500`}
-                        style={{ width: `${Math.round((learnerId ? score : 0) * 100)}%` }}
-                      />
-                    </div>
-                    <p className="text-[10px] text-muted-foreground">
-                      {!learnerId ? "اختر متعلماً" : score >= 0.75 ? "جاهز" : score >= 0.5 ? "قيد التطوير" : "يحتاج تدخّل"}
-                    </p>
+      {/* 5 Destinations cards — instructional empty state when no learner */}
+      {!learnerId ? (
+        <Card className="border-2 border-dashed bg-muted/20">
+          <CardContent className="py-12 text-center space-y-3">
+            <Compass className="h-10 w-10 mx-auto text-muted-foreground" />
+            <p className="text-base font-semibold">رادار الجاهزية غير مُفعَّل</p>
+            <p className="text-sm text-muted-foreground max-w-xl mx-auto leading-relaxed">
+              يرجى اختيار ملف المتعلم الافتراضي لتنشيط رادار الجاهزية وحساب معاملات الجاهزية التراكمية (DRC) لوجهات الرشد الثابتة (D1–D5) حياً.
+            </p>
+            <div className="flex justify-center gap-2 flex-wrap pt-2">
+              {destinations?.map((d: any) => (
+                <Badge key={d.destination_id} variant="outline" className="font-mono">{d.destination_id} · {d.name_ar}</Badge>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          {destLoading && Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={i} className="h-40 w-full" />
+          ))}
+          {destinations?.map((d: any) => {
+            const score = drc?.[d.destination_id] ?? 0;
+            const tone = drcTone(score);
+            return (
+              <Card
+                key={d.destination_id}
+                className={`border-2 ${tone.border} bg-gradient-to-br ${tone.glow} to-transparent`}
+              >
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono opacity-70">{d.destination_id}</span>
+                    {d.destination_id === "D5" && score < 0.5 && (
+                      <Badge variant="destructive" className="text-[10px]">حرج</Badge>
+                    )}
                   </div>
-                </div>
-                <p className="text-xs text-muted-foreground line-clamp-2">{d.engine_function}</p>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
+                  <CardTitle className="text-base leading-tight">{d.name_ar}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    {drcLoading ? (
+                      <Skeleton className="h-20 w-20 rounded-full" />
+                    ) : (
+                      <DRCRing value={score} />
+                    )}
+                    <div className="flex-1 space-y-1">
+                      <div className="h-2 rounded-full bg-muted overflow-hidden">
+                        <div
+                          className={`h-full ${tone.bar} transition-all duration-500`}
+                          style={{ width: `${Math.round(score * 100)}%` }}
+                        />
+                      </div>
+                      <p className="text-[10px] text-muted-foreground">
+                        {score >= 0.75 ? "جاهز" : score >= 0.5 ? "قيد التطوير" : "يحتاج تدخّل"}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground line-clamp-2">{d.engine_function}</p>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      )}
 
       {/* Cohort metrics */}
       <div className="grid gap-4 md:grid-cols-3">
