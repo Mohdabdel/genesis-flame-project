@@ -92,10 +92,10 @@ export function GovernanceAuditPanel({ learnerId }: { learnerId?: string | numbe
     return (
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2"><Gavel className="h-5 w-5 text-primary" />لوحة التدقيق وحوكمة الخطة الانتقالية</CardTitle>
+          <CardTitle className="flex items-center gap-2"><Gavel className="h-5 w-5 text-primary" />لوحة مراجعة جودة الخطة</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">اختر متعلماً لتشغيل محرك التدقيق التنبؤي عبر متنبئات النجاح المعتمدة دولياً.</p>
+          <p className="text-sm text-muted-foreground">اختر متعلماً لعرض مؤشرات جودة الخطة وفق الأدلة الانتقالية (NTACT Predictors).</p>
         </CardContent>
       </Card>
     );
@@ -189,8 +189,8 @@ export function GovernanceAuditPanel({ learnerId }: { learnerId?: string | numbe
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Gavel className="h-5 w-5 text-primary" />
-          لوحة التدقيق وحوكمة الخطة الانتقالية
-          <span className="text-xs font-normal text-muted-foreground mr-2" dir="ltr">Transition Plan Governance & Audit</span>
+          لوحة مراجعة جودة الخطة
+          <span className="text-xs font-normal text-muted-foreground mr-2" dir="ltr">Transition Plan Quality Review · NTACT Predictors</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
