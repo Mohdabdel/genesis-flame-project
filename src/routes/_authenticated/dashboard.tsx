@@ -7,7 +7,6 @@ import {
   LayoutDashboard,
   ClipboardList,
   FolderKanban,
-  GraduationCap,
   Settings,
   Menu,
   LogOut,
