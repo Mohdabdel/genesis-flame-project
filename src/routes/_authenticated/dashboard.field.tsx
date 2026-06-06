@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Activity, CheckCircle2, HandHelping, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
+import { TransitionHelpAnchor } from "@/components/transition-help-anchor";
 
 export const Route = createFileRoute("/_authenticated/dashboard/field")({
   component: FieldPage,
@@ -73,7 +74,7 @@ function FieldPage() {
       if (error) throw error;
     },
     onSuccess: () => {
-      toast.success(`تم تسجيل الجلسة — معامل الاستقلالية الرقمي (IC) ${(independenceScore * 100).toFixed(0)}%`);
+      toast.success(`تم تسجيل شواهد الأداء الميداني — معامل الاستقلالية (IC) ${(independenceScore * 100).toFixed(0)}%`);
       setSteps({});
       qc.invalidateQueries({ queryKey: ["drc"] });
     },
@@ -83,20 +84,21 @@ function FieldPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-4">
       <div>
-        <h1 className="text-xl font-bold tracking-tight flex items-center gap-2">
+        <h1 className="text-xl font-bold tracking-tight flex items-center gap-2 flex-wrap">
           <Activity className="h-5 w-5 text-primary" />
-          المراقبة الميدانية
+          المراقبة الميدانية وشواهد الأداء
+          <TransitionHelpAnchor term="شواهد الأداء الميداني" />
         </h1>
-        <p className="text-sm text-muted-foreground">تتبّع تنفيذ المتعلم خطوة بخطوة داخل السيناريو النشط.</p>
+        <p className="text-sm text-muted-foreground">تتبّع تنفيذ المتعلم خطوة بخطوة داخل السيناريو الواقعي النشط وحساب معامل الاستقلالية (IC) لحظياً.</p>
       </div>
 
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-base">الهدف النشط</CardTitle>
+          <CardTitle className="text-base flex items-center gap-2">الهدف الفردي النشط<TransitionHelpAnchor term="الأهداف الفردية" /></CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <Select value={objectiveId} onValueChange={(v) => { setObjectiveId(v); setSteps({}); }}>
-            <SelectTrigger className="h-12 text-base"><SelectValue placeholder="اختر هدفاً للملاحظة الميدانية" /></SelectTrigger>
+            <SelectTrigger className="h-12 text-base"><SelectValue placeholder="اختر هدفاً فردياً ضمن الخطة الانتقالية للملاحظة الميدانية" /></SelectTrigger>
             <SelectContent>
               {objectives?.map((o: any) => (
                 <SelectItem key={o.objective_id} value={String(o.objective_id)}>
@@ -109,7 +111,7 @@ function FieldPage() {
             <div className="rounded-lg bg-muted/40 p-3 text-sm space-y-2">
               <p className="font-medium">{objective.generated_iep_goal_ar}</p>
               {scenario && (
-                <Badge variant="secondary">السيناريو: {scenario.title_ar}</Badge>
+                <Badge variant="secondary">السيناريو الواقعي: {scenario.title_ar}</Badge>
               )}
             </div>
           )}
@@ -120,7 +122,7 @@ function FieldPage() {
         <Card>
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-base">قائمة المهام</CardTitle>
+              <CardTitle className="text-base flex items-center gap-2">قائمة الخطوات داخل السيناريو<TransitionHelpAnchor term="معامل الاستقلالية (IC)" label="IC" /></CardTitle>
               <Badge variant="default" className="text-base">
                 {(independenceScore * 100).toFixed(0)}%
               </Badge>
@@ -131,7 +133,7 @@ function FieldPage() {
             {tasks.length === 0 && (
               <div className="rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">
                 <AlertCircle className="h-6 w-6 mx-auto mb-2" />
-                لم يُعرَّف تحليل مهام لهذا السيناريو بعد. أضف الخطوات في حقل <code>task_analysis_template</code> داخل جدول السيناريوهات.
+                لم تُعرَّف خطوات لهذا السيناريو الواقعي بعد.
               </div>
             )}
             {tasks.map((task, i) => {
