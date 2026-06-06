@@ -66,7 +66,7 @@ function FieldPage() {
       const { error } = await supabase.from("evidence_records").insert({
         objective_id: Number(objectiveId),
         evaluator_id: user.user?.id ?? "anonymous",
-        independence_score: Number(independenceScore.toFixed(2)),
+        independence_score: independenceScore,
         task_analysis_payload: { steps, tasks, completed: completedCount },
         context_verification_metadata: { scenario_id: scenario?.scenario_id, recorded_at: new Date().toISOString() },
       });
