@@ -74,11 +74,11 @@ function FieldPage() {
       if (error) throw error;
     },
     onSuccess: () => {
-      toast.success(`تم تسجيل شواهد الأداء الميداني — معامل الاستقلالية (IC) ${(independenceScore * 100).toFixed(0)}%`);
+      toast.success(`تم حفظ شاهد الأداء الميداني بنجاح. — معامل الاستقلالية (IC) ${(independenceScore * 100).toFixed(0)}%`);
       setSteps({});
       qc.invalidateQueries({ queryKey: ["drc"] });
     },
-    onError: (e: any) => toast.error("تعذّر التسجيل: " + e.message),
+    onError: (e: any) => toast.error("لا توجد أهداف جارية للتدريب. أنشئ هدفًا من منشئ الخطة الانتقالية الفردية أولًا. — " + e.message),
   });
 
   return (
@@ -86,19 +86,19 @@ function FieldPage() {
       <div>
         <h1 className="text-xl font-bold tracking-tight flex items-center gap-2 flex-wrap">
           <Activity className="h-5 w-5 text-primary" />
-          المراقبة الميدانية وشواهد الأداء
+          ملاحظات الأداء في الحياة اليومية
           <TransitionHelpAnchor term="شواهد الأداء الميداني" />
         </h1>
-        <p className="text-sm text-muted-foreground">تتبّع تنفيذ المتعلم خطوة بخطوة داخل السيناريو الواقعي النشط وحساب معامل الاستقلالية (IC) لحظياً.</p>
+        <p className="text-sm text-muted-foreground">سجّل أداء المتعلم خطوة بخطوة داخل السيناريو الوظيفي للتدريب، واحسب معامل الاستقلالية بناءً على مستوى الدعم المستخدم.</p>
       </div>
 
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-base flex items-center gap-2">الهدف الفردي النشط<TransitionHelpAnchor term="الأهداف الفردية" /></CardTitle>
+          <CardTitle className="text-base flex items-center gap-2">الهدف الجاري تدريبه<TransitionHelpAnchor term="الأهداف الفردية" /></CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <Select value={objectiveId} onValueChange={(v) => { setObjectiveId(v); setSteps({}); }}>
-            <SelectTrigger className="h-12 text-base"><SelectValue placeholder="اختر هدفاً فردياً ضمن الخطة الانتقالية للملاحظة الميدانية" /></SelectTrigger>
+            <SelectTrigger className="h-12 text-base"><SelectValue placeholder="اختر هدفًا لتسجيل ملاحظات أداء في الحياة اليومية" /></SelectTrigger>
             <SelectContent>
               {objectives?.map((o: any) => (
                 <SelectItem key={o.objective_id} value={String(o.objective_id)}>
@@ -159,7 +159,7 @@ function FieldPage() {
                       onClick={() => setStep(i, "prompted")}
                       className="h-12 text-xs"
                     >
-                      تلميح
+                      بمساعدة
                     </Button>
                     <Button
                       size="lg"
@@ -180,7 +180,7 @@ function FieldPage() {
                 disabled={completedCount === 0 || submit.isPending}
                 onClick={() => submit.mutate()}
               >
-                {submit.isPending ? "جارٍ التسجيل..." : `تسجيل الجلسة (${completedCount}/${tasks.length})`}
+                {submit.isPending ? "جارٍ التسجيل..." : `حفظ ملاحظات الأداء في الحياة اليومية (${completedCount}/${tasks.length})`}
               </Button>
             )}
           </CardContent>

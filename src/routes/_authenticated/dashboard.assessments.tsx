@@ -84,8 +84,8 @@ function AssessmentsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">التقييمات</h1>
-          <p className="text-muted-foreground">إدارة تقييمات النضج الرقمي</p>
+          <h1 className="text-2xl font-bold tracking-tight">ملف التقييمات والملف الانتقالي</h1>
+          <p className="text-muted-foreground">إدارة تقييمات الجاهزية الانتقالية، ونتائج أدوات التقييم، وملف المتعلم الداعم للخطة الانتقالية الفردية.</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
@@ -133,7 +133,7 @@ function AssessmentsPage() {
       <div className="relative">
         <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
-          placeholder="البحث في التقييمات..."
+          placeholder="البحث في التقييمات"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="pr-9"

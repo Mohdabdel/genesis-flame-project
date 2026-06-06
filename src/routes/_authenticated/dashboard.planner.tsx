@@ -137,7 +137,7 @@ function PlannerPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <Network className="h-4 w-4 text-primary" />
-            شجرة الإطار
+            شجرة مسارات الانتقال
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-1 text-sm">
@@ -174,10 +174,10 @@ function PlannerPage() {
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
             <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2 flex-wrap">
-              ورشة المخطّط التأهيلي
+              منشئ الخطة الانتقالية الفردية
               <TransitionHelpAnchor term="الأهداف الفردية" />
             </h1>
-            <p className="text-muted-foreground">حدّد المتعلم، ثم اصنع هدفاً فردياً ضمن الخطة الانتقالية عبر: مجال الحياة ← مسار الانتقال ← محطة التقدم ← مؤشر الجاهزية ← السيناريو الواقعي.</p>
+            <p className="text-muted-foreground">اختر المتعلم وأنشئ هدفًا فرديًا مرتبطًا بمجالات الحياة بعد المدرسة، ومسارات الانتقال، ومحطات التقدم، ومؤشرات الجاهزية، والسيناريوهات الواقعية.</p>
           </div>
           <ITPExportButton
             learnerId={selectedLearner}
@@ -217,7 +217,7 @@ function PlannerPage() {
         {/* IEP Builder */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 flex-wrap"><Sparkles className="h-5 w-5 text-primary" />مولّد الأهداف الفردية ضمن الخطة الانتقالية<TransitionHelpAnchor term="الأهداف الفردية" /></CardTitle>
+            <CardTitle className="flex items-center gap-2 flex-wrap"><Sparkles className="h-5 w-5 text-primary" />منشئ الأهداف الفردية للخطة الانتقالية<TransitionHelpAnchor term="الأهداف الفردية" /></CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <Step n={1} label="مجال الحياة بعد المدرسة" helpTerm="مجالات الحياة بعد المدرسة">
@@ -234,25 +234,25 @@ function PlannerPage() {
             </Step>
             <Step n={3} label="محطة التقدم الانتقالي" done={!!pathwayId} helpTerm="محطات التقدم الانتقالي">
               <Select value={stationId} onValueChange={(v) => { setStationId(v); setIndicatorId(""); }} disabled={!pathwayId}>
-                <SelectTrigger><SelectValue placeholder="اختر محطة" /></SelectTrigger>
+                <SelectTrigger><SelectValue placeholder="اختر محطة تقدم انتقالية" /></SelectTrigger>
                 <SelectContent>{stations?.filter((s: any) => s.pathway_id === pathwayId).map((s: any) => <SelectItem key={s.station_id} value={s.station_id}>{s.name_ar}</SelectItem>)}</SelectContent>
               </Select>
             </Step>
             <Step n={4} label={`مؤشر الجاهزية حسب المرحلة العمرية (${ageBand ?? "—"})`} done={!!stationId} helpTerm="مؤشرات الجاهزية">
               <Select value={indicatorId} onValueChange={setIndicatorId} disabled={!stationId || indicators.length === 0}>
-                <SelectTrigger><SelectValue placeholder={indicators.length === 0 ? "لا توجد مؤشرات لهذه الفئة العمرية" : "اختر مؤشراً"} /></SelectTrigger>
+                <SelectTrigger><SelectValue placeholder={indicators.length === 0 ? "لا توجد مؤشرات جاهزية مدخلة لهذه المرحلة العمرية" : "اختر مؤشر جاهزية"} /></SelectTrigger>
                 <SelectContent>{indicators.map((i: any) => <SelectItem key={i.indicator_id} value={i.indicator_id}>{i.description_ar}</SelectItem>)}</SelectContent>
               </Select>
             </Step>
             <Step n={5} label="السيناريو الواقعي" done={!!indicatorId} helpTerm="السيناريوهات الواقعية">
               <Select value={scenarioId} onValueChange={setScenarioId} disabled={!indicatorId}>
-                <SelectTrigger><SelectValue placeholder={scenarios?.length ? "اختر سيناريو" : "لا توجد سيناريوهات بعد"} /></SelectTrigger>
+                <SelectTrigger><SelectValue placeholder={scenarios?.length ? "اختر سيناريو واقعي" : "لا توجد سيناريوهات واقعية مرتبطة بهذه المحطة بعد"} /></SelectTrigger>
                 <SelectContent>{scenarios?.map((s: any) => <SelectItem key={s.scenario_id} value={s.scenario_id}>{s.title_ar}</SelectItem>)}</SelectContent>
               </Select>
             </Step>
             <div className="space-y-2">
-              <Label className="flex items-center gap-2">صياغة الهدف الفردي ضمن الخطة الانتقالية <TransitionHelpAnchor term="الأهداف الفردية" /></Label>
-              <Textarea value={iepGoal} onChange={(e) => setIepGoal(e.target.value)} rows={3} placeholder="مثال: سيُتقن المتعلم استخدام تطبيق المواصلات الذكية باستقلالية في 4 رحلات متتالية..." />
+              <Label className="flex items-center gap-2">صياغة الهدف الفردي للخطة الانتقالية <TransitionHelpAnchor term="الأهداف الفردية" /></Label>
+              <Textarea value={iepGoal} onChange={(e) => setIepGoal(e.target.value)} rows={3} placeholder="مثال: سيتمكن المتعلم من استخدام تطبيق المواصلات الذكية باستقلالية في أربع رحلات متتالية، وفق خطوات محددة وشواهد أداء ميدانية." />
             </div>
             <Button disabled={!canCreate || createObjective.isPending} onClick={() => createObjective.mutate()} className="w-full">
               {createObjective.isPending ? "جارٍ الحفظ..." : "إنشاء الهدف الفردي"}

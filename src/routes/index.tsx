@@ -62,19 +62,19 @@ function LandingPage() {
         <div className="mx-auto max-w-3xl">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs text-primary mb-4">
             <ShieldCheck className="h-3.5 w-3.5" />
-            الانتقال إلى ما بعد المدرسة — بنية v4
+            منصة مسار همم الانتقالية — بنية v4
           </div>
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl leading-tight">
             مسار همم: <span className="text-primary">بوصلة الانتقال</span> إلى ما بعد المدرسة
             <TransitionHelpAnchor term="مسار همم" className="mr-2 align-middle" />
           </h1>
           <p className="mt-6 text-lg sm:text-xl text-muted-foreground leading-relaxed font-medium">
-            منصة تساعد فرق التأهيل والأسر على دعم انتقال الشباب ذوي الإعاقة نحو
+            لدعم انتقال الشباب ذوي الإعاقة نحو
             <span className="text-foreground"> حياة ذات معنى بعد التخرج</span>.
             <TransitionHelpAnchor term="الحياة ذات المعنى بعد التخرج" className="mr-2" />
           </p>
           <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
-            تربط المنصة بين <strong className="text-foreground">مجالات الحياة بعد المدرسة</strong>،
+            تجعل كل هدف <strong className="text-foreground">خطوة نحو بناء المستقبل</strong> — تربط المنصة بين <strong className="text-foreground">مجالات الحياة بعد المدرسة</strong>،
             و<strong className="text-foreground">مسارات الانتقال</strong>،
             و<strong className="text-foreground">محطات التقدم</strong>،
             و<strong className="text-foreground">الأهداف الفردية</strong>،
@@ -84,13 +84,13 @@ function LandingPage() {
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link to="/auth">
               <Button size="lg" className="gap-2">
-                ابدأ رحلة الانتقال
+                جرّب رحلة متعلم نموذجي
                 <ArrowLeft className="h-4 w-4" />
               </Button>
             </Link>
             <Link to="/auth">
               <Button variant="outline" size="lg">
-                جرّب متعلمًا نموذجيًا
+                تعرف على مسار همم
               </Button>
             </Link>
           </div>
@@ -130,12 +130,12 @@ function LandingPage() {
         <div className="grid gap-6 sm:grid-cols-3">
           <FeatureCard
             icon={Network}
-            title="محطات الجاهزية والسيناريوهات"
+            title="محطات التقدم والسيناريوهات الواقعية"
             description="محطات التقدم الانتقالي موزّعة على مجالات الحياة بعد المدرسة، مع سيناريوهات واقعية (مقهى تدريبي، بيئة بيع رقمية، شقة مستقلة) لتوليد شواهد الأداء الميداني."
           />
           <FeatureCard
             icon={Compass}
-            title="ورشة المخطط التأهيلي"
+            title="منشئ الخطة الانتقالية الفردية"
             description="مولّد الأهداف الفردية ضمن الخطة الانتقالية، متّبعاً مسار: المجال ← مسار الانتقال ← محطة التقدم ← مؤشر الجاهزية ← السيناريو الواقعي، مع متتبّع الإتقان والتعميم السياقي."
           />
           <FeatureCard

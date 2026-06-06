@@ -45,8 +45,8 @@ function TrainingPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">التدريب</h1>
-        <p className="text-muted-foreground">وحدات التعلم والتطوير المهني</p>
+        <h1 className="text-2xl font-bold tracking-tight">تدريب الفريق والأسرة</h1>
+        <p className="text-muted-foreground">وحدات تأهيل الفريق المهني وأولياء الأمور لدعم انتقال المتعلم نحو الحياة بعد المدرسة.</p>
       </div>
 
       {categories.map((category) => (

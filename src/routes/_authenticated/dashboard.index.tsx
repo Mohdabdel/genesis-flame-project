@@ -89,7 +89,7 @@ function DashboardHome() {
             <div className="space-y-2">
               <h2 className="text-2xl font-bold">لم تنضم لأي مؤسسة بعد</h2>
               <p className="text-muted-foreground">
-                فعّل المؤسسة التجريبية لاستكشاف محرك الانتقال للحياة المستقلة والوكالة المهنية،
+                فعّل المؤسسة التجريبية لاستكشاف بوابة الانتقال إلى ما بعد المدرسة،
                 مع ثلاثة متعلمين افتراضيين جاهزين على خط الجاهزية.
               </p>
             </div>
@@ -110,9 +110,9 @@ function DashboardHome() {
                 جولة المتعلم الافتراضي خلال 60 ثانية
               </div>
               <ol className="space-y-2 text-sm text-muted-foreground">
-                <Step n={1} text="اختر متعلماً افتراضياً من ورشة المخطط التأهيلي." />
-                <Step n={2} text="سجّل تتبّع ميداني (Field Telemetry) في سيناريو غامر." />
-                <Step n={3} text="افتح محرك الانتقال لمشاهدة معاملات DRC وتوصية بوابة الخروج لحظياً." />
+                <Step n={1} text="اختر متعلماً افتراضياً من منشئ الخطة الانتقالية الفردية." />
+                <Step n={2} text="سجّل شاهد أداء ميداني داخل سيناريو واقعي." />
+                <Step n={3} text="افتح بوابة الانتقال إلى ما بعد المدرسة لمشاهدة معاملات DRC وتوصية المسار لحظياً." />
               </ol>
             </div>
 
@@ -142,7 +142,7 @@ function DashboardHome() {
         <div className="flex gap-2 flex-wrap">
           <Link to="/dashboard/planner"><Button variant="outline" size="sm" className="gap-2"><Compass className="h-4 w-4" /> اختر متعلماً افتراضياً</Button></Link>
           <Link to="/dashboard/field"><Button variant="outline" size="sm" className="gap-2"><Activity className="h-4 w-4" /> سجّل تتبّع ميداني</Button></Link>
-          <Link to="/dashboard/engine"><Button size="sm" className="gap-2"><Sparkles className="h-4 w-4" /> افتح محرك الانتقال</Button></Link>
+          <Link to="/dashboard/engine"><Button size="sm" className="gap-2"><Sparkles className="h-4 w-4" /> افتح بوابة الانتقال</Button></Link>
         </div>
       </div>
 
