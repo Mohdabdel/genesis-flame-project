@@ -124,17 +124,17 @@ export function GovernanceAuditPanel({ learnerId }: { learnerId?: string | numbe
           code: "ALERT_PRED_00",
           severity: "critical",
           title_ar: "لا توجد أهداف فردية نشطة",
-          detail_ar: `المتعلم في نافذة الانتقال (${Math.floor(age!)} سنة) دون أي هدف IEP نشط. ابدأ ببناء خطة قائمة على المؤشرات التنبؤية.`,
-          predictor_en: "NTACT:C — Active IEP coverage",
+          detail_ar: `المتعلم في نافذة الانتقال الحرجة (${Math.floor(age!)} سنة) دون أي هدف فردي مشتق حوكمياً نشط. ابدأ ببناء خطة قائمة على المؤشرات التنبؤية للنجاح (متنبئات NTACT:C).`,
+          predictor_en: "NTACT:C Success Predictors — Active Governed Objectives coverage",
         });
       } else {
         if (communityCount === 0) {
           findings.push({
             code: "ALERT_PRED_04",
             severity: "critical",
-            title_ar: "اعتماد مفرط على البيئات الصفّية",
-            detail_ar: `جميع الأهداف (${total}) مرتبطة بسيناريوهات صفّية بدون أي تعليم قائم على المجتمع (CBI). الدليل التنبؤي يربط CBI بنتائج توظيف وتعليم أعلى.`,
-            predictor_en: "Community-Based Instruction (CBI) absent",
+            title_ar: "اعتماد مفرط على البيئات الصفّية والمحاكاة النظرية",
+            detail_ar: `[ALERT_PRED_04]: تم رصد اعتماد مفرط على البيئات الصفية والمحاكاة النظرية داخل نافذة الانتقال الحرجة (+16). الخطة الحالية تفتقر لوسوم البيئة الحقيقية (CBI). الإجراء المطلوب: ربط المهارة فوراً بسيناريو ميداني نشط. (${total} أهداف صفّية بدون CBI)`,
+            predictor_en: "NTACT:C — Community-Based Instruction (CBI) absent",
           });
         } else if (communityCount / total < 0.3) {
           findings.push({
@@ -150,8 +150,8 @@ export function GovernanceAuditPanel({ learnerId }: { learnerId?: string | numbe
             code: "ALERT_PRED_01",
             severity: "critical",
             title_ar: "غياب خبرة العمل المأجور",
-            detail_ar: "لا توجد أهداف ضمن سيناريوهات عمل/توظيف. خبرة العمل المأجور (Paid Work Experience) من أقوى المتنبئات بالتوظيف التنافسي بعد المدرسة.",
-            predictor_en: "Paid Work Experience missing",
+            detail_ar: "لا توجد أهداف ضمن سيناريوهات عمل/توظيف. خبرة العمل المأجور (Paid Work Experience) من أقوى متنبئات النجاح لـ NTACT:C بالتوظيف التنافسي بعد المدرسة.",
+            predictor_en: "NTACT:C Success Predictor — Paid Work Experience missing",
           });
         }
         if (!destCounts["D1"]) {
@@ -159,8 +159,8 @@ export function GovernanceAuditPanel({ learnerId }: { learnerId?: string | numbe
             code: "ALERT_PRED_02",
             severity: "warning",
             title_ar: "لا أهداف في وجهة العمل (D1)",
-            detail_ar: "نافذة الانتقال نشطة دون أي أهداف مرتبطة بوجهة العمل والإنتاج. راجع التعاون بين الوكالات (Interagency Collaboration).",
-            predictor_en: "Interagency Collaboration / D1 coverage",
+            detail_ar: "نافذة الانتقال نشطة دون أي أهداف مرتبطة بوجهة الرشد الثابتة للعمل والإنتاج (D1). راجع التعاون بين الوكالات (Interagency Collaboration).",
+            predictor_en: "NTACT:C — Interagency Collaboration / D1 coverage",
           });
         }
         if (!destCounts["D3"] && !destCounts["D4"]) {
@@ -168,8 +168,8 @@ export function GovernanceAuditPanel({ learnerId }: { learnerId?: string | numbe
             code: "ALERT_PRED_03",
             severity: "warning",
             title_ar: "غياب أهداف المشاركة المجتمعية والسكن",
-            detail_ar: "لا توجد أهداف في وجهتَي السكن المستقل (D3) أو المشاركة المدنية (D4). الانتقال الشامل يتطلب تغطية متعددة الوجهات.",
-            predictor_en: "Independent Living & Community Participation coverage",
+            detail_ar: "لا توجد أهداف في وجهتَي الرشد الثابتة للسكن المستقل (D3) أو المشاركة المدنية (D4). الانتقال الشامل يتطلب تغطية متعددة الوجهات.",
+            predictor_en: "NTACT:C — Independent Living & Community Participation coverage",
           });
         }
       }
@@ -196,15 +196,15 @@ export function GovernanceAuditPanel({ learnerId }: { learnerId?: string | numbe
       <CardContent className="space-y-3">
         {isLoading && (
           <div className="flex items-center justify-center py-6 text-muted-foreground text-sm">
-            <Loader2 className="h-4 w-4 animate-spin ml-2" /> جارٍ تحليل الخطة عبر متنبئات NTACT:C...
+            <Loader2 className="h-4 w-4 animate-spin ml-2" /> جارٍ تحليل الخطة عبر المؤشرات التنبؤية للنجاح (متنبئات NTACT:C)...
           </div>
         )}
         {!isLoading && findings.length === 0 && (
           <div className="flex items-start gap-3 rounded-lg border border-emerald-500/40 bg-emerald-500/5 p-3">
             <ShieldCheck className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
             <div>
-              <p className="font-semibold text-sm">الخطة تستوفي متنبئات الانتقال القائمة على الدليل</p>
-              <p className="text-xs text-muted-foreground mt-0.5">لا توجد علامات تحسين مفعّلة حالياً.</p>
+              <p className="font-semibold text-sm">الخطة تستوفي المؤشرات التنبؤية للنجاح (متنبئات NTACT:C) القائمة على الدليل</p>
+              <p className="text-xs text-muted-foreground mt-0.5">لا توجد علامات حوكمية مفعّلة حالياً.</p>
             </div>
           </div>
         )}
