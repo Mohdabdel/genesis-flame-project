@@ -145,7 +145,10 @@ function EnginePage() {
     });
   }
   if (guardrailActive) {
-    alerts.push({ level: "error", msg: "حارس الكرامة (القاعدة 4) مُفعَّل: مؤشر الرفاهية D5 تحت 0.50 — أوقف توصية أي مسار مهني واعد بمراجعة شاملة." });
+    alerts.push({
+      level: "error",
+      msg: "[GOVERNANCE_BADGE]: تفعيل صمام الأمان الحوكمي وحارس الكرامة (Rule 4 Enforcer) نظراً لتدني مؤشرات الرفاهية والأمن النفسي (D5 < 0.50). تم تجميد مسارات التوجيه الإنتاجي والعمل الشاق مؤقتاً، وفرض مصفوفة الدعم الأسري والنفسي المتكامل كأولوية قصوى.",
+    });
   }
 
   return (
@@ -154,9 +157,9 @@ function EnginePage() {
         <div>
           <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2">
             <Compass className="h-6 w-6 text-primary" />
-            محرك الانتقال — لوحة المشرف
+            محرك توصيات مسارات الرشد — لوحة المشرف
           </h1>
-          <p className="text-muted-foreground mt-1">قراءة جاهزية المتعلمين عبر الوجهات الخمس وتوجيه مسار ما بعد المدرسة.</p>
+          <p className="text-muted-foreground mt-1">قراءة جاهزية المتعلمين عبر الغايات النهائية للحياة / وجهات الرشد الثابتة (D1-D5) وتوجيه بوابة الخروج التكيفية.</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap min-w-[240px]">
           <ITPExportButton learnerId={learnerId} />
@@ -189,12 +192,12 @@ function EnginePage() {
             )}
             <div className="flex-1">
               <p className="font-semibold">
-                {guardrailActive ? "🚨 حارس الكرامة مُفعَّل (Rule 4 Enforcer)" : "حارس الكرامة: غير مُفعَّل"}
+                {guardrailActive ? "🚨 [GOVERNANCE_BADGE] صمام الأمان الحوكمي وحارس الكرامة (Rule 4 Enforcer) مُفعَّل" : "صمام الأمان الحوكمي وحارس الكرامة (Rule 4 Enforcer): غير مُفعَّل"}
               </p>
               <p className="text-sm text-muted-foreground mt-0.5">
                 {guardrailActive
-                  ? `مؤشر الرفاهية D5 = ${(d5! * 100).toFixed(0)}% — تحت العتبة الحرجة 50%. يتم تجميد توصية البوابة حتى مراجعة الفريق.`
-                  : "مؤشر الرفاهية D5 يستوفي العتبة. التوصيات نشطة."}
+                  ? `تفعيل صمام الأمان الحوكمي وحارس الكرامة (Rule 4 Enforcer) نظراً لتدني مؤشرات الرفاهية والأمن النفسي (D5 = ${(d5! * 100).toFixed(0)}% < 0.50). تم تجميد مسارات التوجيه الإنتاجي والعمل الشاق مؤقتاً، وفرض مصفوفة الدعم الأسري والنفسي المتكامل كأولوية قصوى.`
+                  : "مؤشر الرفاهية والأمن النفسي (D5) يستوفي العتبة الحوكمية. توصيات بوابة الخروج التكيفية نشطة."}
               </p>
             </div>
           </CardContent>
@@ -206,7 +209,7 @@ function EnginePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Target className="h-5 w-5 text-primary" />
-            توصية البوّابة لما بعد المدرسة
+            بوابة الخروج التكيفية — توصية مسار الرشد المعتمد
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -227,14 +230,14 @@ function EnginePage() {
                       {track.replace(/^TRACK_/, "T")}
                     </Badge>
                     {guardrailActive && (
-                      <Badge variant="destructive">🚨 موقوفة بحارس الكرامة</Badge>
+                      <Badge variant="destructive">🚨 موقوفة بصمام الأمان الحوكمي (Rule 4)</Badge>
                     )}
                   </div>
                   <p className="text-lg font-bold">{TRACK_INFO[track].ar}</p>
                   <p className="text-sm text-muted-foreground" dir="ltr">{TRACK_INFO[track].en}</p>
                 </div>
               )}
-              <p className="text-xs text-muted-foreground">مبنية على معاملات DRC للوجهات الخمس وعتبات الحوكمة.</p>
+              <p className="text-xs text-muted-foreground">محسوبة وفق معاملات الجاهزية التراكمية (DRC) لوجهات الرشد الثابتة (D1-D5) وعتبات الحوكمة المؤسسية.</p>
             </div>
           )}
         </CardContent>
@@ -300,7 +303,7 @@ function EnginePage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm flex items-center gap-2"><Target className="h-4 w-4" />الأهداف النشطة</CardTitle>
+            <CardTitle className="text-sm flex items-center gap-2"><Target className="h-4 w-4" />الأهداف الفردية المشتقة حوكمياً</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{objectives?.filter((o: any) => o.is_active).length ?? 0}</div>
