@@ -43,14 +43,14 @@ export function ITPExportButton({ learnerId }: { learnerId?: string | number | n
         className="gap-2"
       >
         <FileDown className="h-4 w-4" />
-        استخراج وثيقة الانتقال المعتمدة
-        <span className="hidden md:inline opacity-70" dir="ltr">/ Export Official ITP</span>
+        استخراج وثيقة الانتقال المعتمدة والموحدة
+        <span className="hidden md:inline opacity-70" dir="ltr">/ Export Official ITP Document</span>
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-5xl max-h-[92vh] overflow-y-auto p-0 itp-no-print">
           <DialogHeader className="sticky top-0 z-10 bg-background border-b p-4 itp-no-print">
             <div className="flex items-center justify-between gap-3 flex-wrap">
-              <DialogTitle>وثيقة برنامج الانتقال الفردي (ITP)</DialogTitle>
+              <DialogTitle>وثيقة الانتقال المعتمدة والموحدة للطالب (ITP Official Document)</DialogTitle>
               <Button onClick={() => window.print()} className="gap-2">
                 <Printer className="h-4 w-4" /> طباعة / حفظ PDF
               </Button>
@@ -128,7 +128,7 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
 
   // success toast once
   useEffect(() => {
-    if (ready) toast.success("تم تجميع وثيقة الانتقال من قاعدة البيانات");
+    if (ready) toast.success("تم تجميع وثيقة الانتقال المعتمدة والموحدة للطالب من قاعدة البيانات");
   }, [ready]);
 
   const d5 = drc?.D5 ?? null;
@@ -171,8 +171,8 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
       <header className="border-b-2 border-black pb-4 mb-6 break-inside-avoid">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">وثيقة برنامج الانتقال الفردي</h1>
-            <p className="text-sm opacity-70" dir="ltr">Individualized Transition Program (ITP) — Official Record</p>
+            <h1 className="text-2xl font-bold tracking-tight">وثيقة الانتقال المعتمدة والموحدة للطالب</h1>
+            <p className="text-sm opacity-70" dir="ltr">ITP Official Document — Individualized Transition Program — Certified Record</p>
           </div>
           <div className="text-left text-xs space-y-0.5">
             <p><span className="opacity-60">رقم الوثيقة:</span> <span className="font-mono font-semibold">{docId}</span></p>
@@ -201,7 +201,7 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
 
       {/* DRC bars */}
       <section className="mb-6 break-inside-avoid">
-        <SectionTitle ar="معاملات جاهزية الوجهات (DRC)" en="Destination Readiness Coefficients — D1..D5" />
+        <SectionTitle ar="معاملات الجاهزية التراكمية لوجهات الرشد الثابتة (DRC — D1..D5)" en="Destination Readiness Coefficients — Adult Life Destinations D1..D5" />
         <div className="space-y-2">
           {destinations!.map((d: any) => {
             const v = drc?.[d.destination_id] ?? 0;
@@ -222,7 +222,7 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
 
       {/* Gateway recommendation */}
       <section className="mb-6 break-inside-avoid">
-        <SectionTitle ar="توصية بوّابة ما بعد المدرسة" en="Adult Post-School Track Recommendation" />
+        <SectionTitle ar="بوابة الخروج التكيفية — محرك توصيات مسارات الرشد" en="Adaptive Exit Gateway — Adult Pathway Recommendation Engine" />
         {!inTransition && (
           <p className="text-sm opacity-70">نافذة الانتقال تبدأ في سن 16. لم تُحسب توصية حتمية بعد.</p>
         )}
@@ -238,7 +238,7 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
               <div className="inline-flex items-center gap-1 border border-black px-2 py-0.5 rounded">شارة الحوكمة المعتمدة</div>
               {guardrail ? (
                 <div className="inline-flex items-center gap-1 bg-black text-white px-2 py-0.5 rounded">
-                  <ShieldAlert className="h-3 w-3" /> حارس الكرامة مُفعَّل
+                  <ShieldAlert className="h-3 w-3" /> صمام الأمان الحوكمي (Rule 4) مُفعَّل
                 </div>
               ) : (
                 <div className="inline-flex items-center gap-1 border border-black/60 px-2 py-0.5 rounded">
@@ -250,17 +250,19 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
         )}
         {/* Safety override log */}
         <div className="mt-2 text-xs border-r-2 border-black/40 pr-3">
-          <p className="font-semibold">سجل أمان الكرامة (Rule 4):</p>
+          <p className="font-semibold">سجل صمام الأمان الحوكمي وحارس الكرامة (Rule 4 Enforcer):</p>
           <p>
-            D5 = {d5 !== null ? `${Math.round(d5 * 100)}%` : "—"} —
-            {guardrail ? " تجاوز الحارس مفعّل: التوصية موقوفة للمراجعة." : " ضمن العتبة. التوصية نشطة."}
+            مؤشر الرفاهية والأمن النفسي D5 = {d5 !== null ? `${Math.round(d5 * 100)}%` : "—"} —
+            {guardrail
+              ? " [GOVERNANCE_BADGE]: تفعيل صمام الأمان الحوكمي وحارس الكرامة (Rule 4 Enforcer) نظراً لتدني مؤشرات الرفاهية والأمن النفسي (D5 < 0.50). تم تجميد مسارات التوجيه الإنتاجي والعمل الشاق مؤقتاً، وفرض مصفوفة الدعم الأسري والنفسي المتكامل كأولوية قصوى."
+              : " ضمن العتبة الحوكمية. توصية بوابة الخروج التكيفية نشطة."}
           </p>
         </div>
       </section>
 
       {/* IEP objectives grouped by destination */}
       <section className="mb-6">
-        <SectionTitle ar="الأهداف الفردية ضمن السلسلة الحاكمة" en="IEP Objectives — Destination → Pathway → Station → Indicator → Scenario" />
+        <SectionTitle ar="الأهداف الفردية المشتقة حوكمياً (المنسوجة سياقياً)" en="Governance-Derived Individual Objectives — Destination → Pathway → Station → Indicator → Scenario" />
         {(objectives ?? []).length === 0 && <p className="text-sm opacity-70">لا توجد أهداف نشطة مسجّلة.</p>}
         <div className="space-y-3">
           {(objectives ?? []).map((o: any) => {
@@ -312,7 +314,7 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
         <SectionTitle ar="سجل التدقيق والحوكمة" en="Governance & Compliance Audit" />
         {findings.length === 0 ? (
           <div className="border border-black/40 rounded p-3 text-sm flex items-center gap-2">
-            <ShieldCheck className="h-4 w-4" /> الخطة تستوفي متنبئات الانتقال القائمة على الدليل (NTACT:C).
+            <ShieldCheck className="h-4 w-4" /> الخطة تستوفي المؤشرات التنبؤية للنجاح / متنبئات النجاح لـ NTACT:C القائمة على الدليل.
           </div>
         ) : (
           <ul className="space-y-2">
