@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -127,9 +127,8 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
   const ready = !objLoading && !drcLoading && learner && destinations;
 
   // success toast once
-  useMemo(() => {
+  useEffect(() => {
     if (ready) toast.success("تم تجميع وثيقة الانتقال من قاعدة البيانات");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ready]);
 
   const d5 = drc?.D5 ?? null;
