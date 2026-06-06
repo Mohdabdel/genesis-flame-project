@@ -30,9 +30,19 @@ function drcTone(v: number) {
   return { label: "يحتاج تدخّل", color: "#ef4444" };
 }
 
-export function ITPExportButton({ learnerId }: { learnerId?: string | number | null }) {
+export function ITPExportButton({
+  learnerId,
+  hasActivePlan,
+}: {
+  learnerId?: string | number | null;
+  hasActivePlan?: boolean;
+}) {
   const [open, setOpen] = useState(false);
-  const enabled = !!learnerId;
+  const selectedLearner = !!learnerId;
+  // Strict guard: requires both an active learner profile AND verified active objectives.
+  // When hasActivePlan is not provided (e.g. engine page), fall back to learner selection only.
+  const enabled =
+    hasActivePlan === undefined ? selectedLearner : selectedLearner && hasActivePlan;
   return (
     <>
       <Button
@@ -40,7 +50,14 @@ export function ITPExportButton({ learnerId }: { learnerId?: string | number | n
         size="sm"
         disabled={!enabled}
         onClick={() => setOpen(true)}
-        className="gap-2"
+        className={`gap-2 ${!enabled ? "opacity-50" : ""}`}
+        title={
+          !selectedLearner
+            ? "اختر ملف متعلم أولاً"
+            : hasActivePlan === false
+              ? "لا توجد أهداف فردية نشطة لهذا المتعلم"
+              : undefined
+        }
       >
         <FileDown className="h-4 w-4" />
         استخراج وثيقة الانتقال المعتمدة والموحدة
