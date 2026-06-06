@@ -60,8 +60,8 @@ function SettingsPage() {
   return (
     <div className="space-y-6 max-w-2xl">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">الإعدادات</h1>
-        <p className="text-muted-foreground">إدارة ملفك الشخصي والمؤسسة</p>
+        <h1 className="text-2xl font-bold tracking-tight">إعدادات المؤسسة والصلاحيات</h1>
+        <p className="text-muted-foreground">إدارة الملف الشخصي وبيانات المؤسسة وصلاحيات الفريق.</p>
       </div>
 
       <Card>
