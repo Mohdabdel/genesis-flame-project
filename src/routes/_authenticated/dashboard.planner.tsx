@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { ChevronDown, ChevronLeft, Network, UserPlus, Sparkles, CheckCircle2 } from "lucide-react";
+import { ChevronDown, ChevronLeft, Network, UserPlus, Sparkles, CheckCircle2, Trophy, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import type { Database } from "@/integrations/supabase/types";
 
@@ -105,6 +105,21 @@ function PlannerPage() {
       qc.invalidateQueries({ queryKey: ["objectives-cohort"] });
     },
     onError: (e: any) => toast.error("تعذّر إنشاء الهدف: " + e.message),
+  });
+
+  // Mastery tracker: load objectives + recent evidence for the active learner
+  const { data: masteryObjectives, isLoading: masteryLoading } = useQuery({
+    queryKey: ["mastery-objectives", selectedLearner],
+    enabled: !!selectedLearner,
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("individual_objectives")
+        .select("objective_id, generated_iep_goal_ar, target_scenario_id, indicators(description_ar), evidence_records(evidence_id, independence_score, context_verification_metadata, timestamp)")
+        .eq("learner_id", Number(selectedLearner))
+        .eq("is_active", true)
+        .order("created_at", { ascending: false });
+      return data ?? [];
+    },
   });
 
   return (
@@ -227,6 +242,59 @@ function PlannerPage() {
             </Button>
           </CardContent>
         </Card>
+
+        {/* Mastery Tracker */}
+        {selectedLearner && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2"><Trophy className="h-5 w-5 text-primary" />متتبّع الإتقان والتعميم السياقي</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {masteryLoading && (
+                <div className="flex items-center justify-center py-6 text-muted-foreground text-sm">
+                  <Loader2 className="h-4 w-4 animate-spin ml-2" /> جارٍ تحميل سجلات الأدلة...
+                </div>
+              )}
+              {!masteryLoading && (masteryObjectives ?? []).length === 0 && (
+                <p className="text-sm text-muted-foreground text-center py-4">لا توجد أهداف نشطة لهذا المتعلم.</p>
+              )}
+              {(masteryObjectives ?? []).map((o: any) => {
+                const records = (o.evidence_records ?? []) as any[];
+                const sorted = [...records].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+                const last3 = sorted.slice(0, 3);
+                const threeStableHigh = last3.length === 3 && last3.every((r) => Number(r.independence_score) >= 0.90);
+                const distinctScenarios = new Set(
+                  records
+                    .filter((r) => Number(r.independence_score) >= 0.90)
+                    .map((r) => r.context_verification_metadata?.scenario_id)
+                    .filter(Boolean),
+                );
+                const mastered = threeStableHigh && distinctScenarios.size >= 2;
+                return (
+                  <div key={o.objective_id} className="rounded-lg border p-3 space-y-2">
+                    <div className="flex items-start justify-between gap-3">
+                      <p className="text-sm font-medium flex-1">{o.generated_iep_goal_ar}</p>
+                      {mastered ? (
+                        <Badge className="bg-success text-success-foreground shrink-0">
+                          <Trophy className="h-3 w-3 ml-1" /> متقَن
+                        </Badge>
+                      ) : (
+                        <Badge variant="secondary" className="shrink-0">ناشئ</Badge>
+                      )}
+                    </div>
+                    <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
+                      <span>محاولات: {records.length}</span>
+                      <span>•</span>
+                      <span>آخر 3 ≥ 90%: {threeStableHigh ? "✓" : "—"}</span>
+                      <span>•</span>
+                      <span>سياقات متمايزة: {distinctScenarios.size}/2</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );

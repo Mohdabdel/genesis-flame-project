@@ -18,7 +18,7 @@ type StepStatus = "independent" | "prompted" | "assisted" | null;
 
 const STATUS_SCORE: Record<Exclude<StepStatus, null>, number> = {
   independent: 1.0,
-  prompted: 0.5,
+  prompted: 0.0,
   assisted: 0.0,
 };
 
@@ -49,11 +49,12 @@ function FieldPage() {
   }, [scenario]);
 
   const completedCount = Object.values(steps).filter((s) => s !== null).length;
+  // IC = independent steps / total steps in active scenario template
   const independenceScore = useMemo(() => {
-    const vals = Object.values(steps).filter((s): s is Exclude<StepStatus, null> => s !== null);
-    if (vals.length === 0) return 0;
-    return vals.reduce((sum, s) => sum + STATUS_SCORE[s], 0) / vals.length;
-  }, [steps]);
+    if (tasks.length === 0) return 0;
+    const independent = Object.values(steps).filter((s) => s === "independent").length;
+    return independent / tasks.length;
+  }, [steps, tasks.length]);
 
   const setStep = (idx: number, status: StepStatus) => {
     setSteps((prev) => ({ ...prev, [idx]: prev[idx] === status ? null : status }));
