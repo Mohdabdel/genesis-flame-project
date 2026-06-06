@@ -93,14 +93,14 @@ function ProjectsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">المشاريع</h1>
-          <p className="text-muted-foreground">إدارة مبادرات التحول الرقمي</p>
+          <h1 className="text-2xl font-bold tracking-tight">السيناريوهات والمبادرات الانتقالية</h1>
+          <p className="text-muted-foreground">إدارة السيناريوهات الواقعية والمبادرات الانتقالية التي تُستخدم لتدريب الأهداف وقياس شواهد الأداء في مواقف قريبة من الحياة.</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button>
               <Plus className="h-4 w-4 ml-2" />
-              مشروع جديد
+              إضافة سيناريو أو مبادرة
             </Button>
           </DialogTrigger>
           <DialogContent>
@@ -163,7 +163,7 @@ function ProjectsPage() {
       <div className="relative">
         <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
-          placeholder="البحث في المشاريع..."
+          placeholder="البحث في السيناريوهات والمبادرات"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="pr-9"
@@ -200,7 +200,7 @@ function ProjectsPage() {
       {filtered?.length === 0 && (
         <div className="text-center py-12 text-muted-foreground">
           <FolderKanban className="h-12 w-12 mx-auto mb-3 opacity-50" />
-          <p>لا توجد مشاريع مطابقة</p>
+          <p>لا توجد سيناريوهات أو مبادرات مطابقة</p>
         </div>
       )}
     </div>
