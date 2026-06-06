@@ -13,6 +13,9 @@ import {
   LogOut,
   ChevronLeft,
   Building2,
+  Compass,
+  Network,
+  Activity,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -22,6 +25,9 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 
 const navItems = [
   { label: "لوحة التحكم", icon: LayoutDashboard, href: "/dashboard" },
+  { label: "محرك الانتقال", icon: Compass, href: "/dashboard/engine" },
+  { label: "ورشة المخطّط", icon: Network, href: "/dashboard/planner" },
+  { label: "المراقبة الميدانية", icon: Activity, href: "/dashboard/field" },
   { label: "التقييمات", icon: ClipboardList, href: "/dashboard/assessments" },
   { label: "المشاريع", icon: FolderKanban, href: "/dashboard/projects" },
   { label: "التدريب", icon: GraduationCap, href: "/dashboard/training" },
