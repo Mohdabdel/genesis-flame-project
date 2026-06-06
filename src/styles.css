@@ -4,6 +4,21 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@media print {
+  @page { size: A4; margin: 14mm; }
+  body * { visibility: hidden !important; }
+  .itp-print-root, .itp-print-root * { visibility: visible !important; }
+  .itp-print-root {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+  .itp-no-print { display: none !important; }
+}
+
 @font-face {
   font-family: "Noto Sans Arabic";
   font-style: normal;
