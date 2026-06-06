@@ -14,21 +14,22 @@ import {
   BookOpen,
   HeartPulse,
 } from "lucide-react";
+import { TransitionHelpAnchor } from "@/components/transition-help-anchor";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "مسارهمم — محرك الانتقال للحياة المستقلة والوكالة المهنية لذوي الإعاقة" },
+      { title: "مسار همم — بوصلة الانتقال إلى ما بعد المدرسة" },
       {
         name: "description",
         content:
-          "منصة متخصصة لتأهيل اليافعين والشباب من ذوي الإعاقة للانتقال نحو الحياة المستقلة والوكالة المهنية عبر محطات الجاهزية، ورشة المخطط التأهيلي، ووثائق الانتقال المعتمدة (ITP).",
+          "منصة تساعد فرق التأهيل والأسر على دعم انتقال الشباب ذوي الإعاقة نحو حياة ذات معنى بعد التخرج عبر مجالات الحياة بعد المدرسة، ومسارات الانتقال، ومحطات التقدم، والسيناريوهات الواقعية.",
       },
-      { property: "og:title", content: "مسارهمم — محرك الانتقال للحياة المستقلة" },
+      { property: "og:title", content: "مسار همم — بوصلة الانتقال إلى ما بعد المدرسة" },
       {
         property: "og:description",
         content:
-          "بوابة الخروج التكيفية ومحرك توصيات مسارات الرشد عبر وجهات الحياة الثابتة (D1–D5).",
+          "بوابة الانتقال إلى ما بعد المدرسة ومحرك توصية مسار الدعم بعد التخرج عبر مجالات الحياة بعد المدرسة (D1–D5).",
       },
     ],
   }),
@@ -44,7 +45,7 @@ function LandingPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-sm">
               هم
             </div>
-            <span className="font-semibold text-lg">مسارهمم</span>
+            <span className="font-semibold text-lg">مسار همم</span>
           </div>
           <div className="flex items-center gap-3">
             <Link to="/auth">
@@ -61,22 +62,24 @@ function LandingPage() {
         <div className="mx-auto max-w-3xl">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs text-primary mb-4">
             <ShieldCheck className="h-3.5 w-3.5" />
-            بنية v3 — حوكمة الانتقال إلى الرشد
+            الانتقال إلى ما بعد المدرسة — بنية v4
           </div>
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-            الانتقال إلى
-            <span className="text-primary"> الحياة المستقلة </span>
-            والوكالة المهنية
-            <br />
-            <span className="text-muted-foreground text-2xl sm:text-3xl md:text-4xl font-semibold">
-              لليافعين والشباب من ذوي الإعاقة
-            </span>
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl leading-tight">
+            مسار همم: <span className="text-primary">بوصلة الانتقال</span> إلى ما بعد المدرسة
+            <TransitionHelpAnchor term="مسار همم" className="mr-2 align-middle" />
           </h1>
-          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-            منصة عملياتية متخصصة تربط <strong className="text-foreground">محطات الجاهزية الـ22</strong> بـ
-            <strong className="text-foreground"> وجهات الرشد الثابتة (D1–D5)</strong>، وتقود بوابة الخروج التكيفية
-            ومحرك توصيات مسارات الرشد بأدلة حقيقية من البيئة المهنية والمجتمعية — لا شعارات
-            عمومية للتحول الرقمي.
+          <p className="mt-6 text-lg sm:text-xl text-muted-foreground leading-relaxed font-medium">
+            منصة تساعد فرق التأهيل والأسر على دعم انتقال الشباب ذوي الإعاقة نحو
+            <span className="text-foreground"> حياة ذات معنى بعد التخرج</span>.
+            <TransitionHelpAnchor term="الحياة ذات المعنى بعد التخرج" className="mr-2" />
+          </p>
+          <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
+            تربط المنصة بين <strong className="text-foreground">مجالات الحياة بعد المدرسة</strong>،
+            و<strong className="text-foreground">مسارات الانتقال</strong>،
+            و<strong className="text-foreground">محطات التقدم</strong>،
+            و<strong className="text-foreground">الأهداف الفردية</strong>،
+            و<strong className="text-foreground">السيناريوهات الواقعية</strong>؛
+            لتكوين صورة أوضح عن جاهزية المتعلم وخطوات دعمه القادمة.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link to="/auth">
@@ -87,7 +90,7 @@ function LandingPage() {
             </Link>
             <Link to="/auth">
               <Button variant="outline" size="lg">
-                جرّب كمتعلم افتراضي
+                جرّب متعلمًا نموذجيًا
               </Button>
             </Link>
           </div>
@@ -98,17 +101,20 @@ function LandingPage() {
       <section className="border-t bg-muted/30 py-16">
         <div className="container mx-auto px-4">
           <div className="mb-10 text-center">
-            <h2 className="text-2xl font-bold">وجهات الرشد الثابتة (D1–D5)</h2>
+            <h2 className="text-2xl font-bold inline-flex items-center gap-2 justify-center">
+              مجالات الحياة بعد المدرسة (D1–D5)
+              <TransitionHelpAnchor term="مجالات الحياة بعد المدرسة" />
+            </h2>
             <p className="mt-2 text-muted-foreground text-sm">
-              الغايات النهائية للحياة المستقلة التي يقيس المحرك جاهزية المتعلم نحوها لحظياً.
+              المجالات الخمسة التي تنظر المنصة من خلالها إلى جاهزية المتعلم لحياة ذات معنى بعد التخرج.
             </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            <DestCard code="D1" icon={Briefcase} title="العمل والإنتاج" />
-            <DestCard code="D2" icon={Home} title="السكن المستقل" />
-            <DestCard code="D3" icon={Users2} title="المشاركة المجتمعية" />
-            <DestCard code="D4" icon={BookOpen} title="التعلم مدى الحياة" />
-            <DestCard code="D5" icon={HeartPulse} title="الرفاهية والصحة" />
+            <DestCard code="D1" icon={Briefcase} title="العمل والمشاركة الاقتصادية" />
+            <DestCard code="D2" icon={Home} title="العيش المستقل وإدارة الحياة اليومية" />
+            <DestCard code="D3" icon={Users2} title="المشاركة المجتمعية والانتماء" />
+            <DestCard code="D4" icon={BookOpen} title="تقرير المصير والاختيار الشخصي" />
+            <DestCard code="D5" icon={HeartPulse} title="جودة الحياة والرفاهية" />
           </div>
         </div>
       </section>
@@ -118,24 +124,24 @@ function LandingPage() {
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-bold">ثلاث وحدات تشغيلية متكاملة</h2>
           <p className="mt-2 text-muted-foreground">
-            من رصد الجاهزية الميدانية إلى توصية المسار، إلى الوثيقة المعتمدة.
+            من رصد الجاهزية الميدانية إلى توصية مسار الدعم بعد التخرج، إلى وثيقة الخطة الانتقالية الفردية.
           </p>
         </div>
         <div className="grid gap-6 sm:grid-cols-3">
           <FeatureCard
             icon={Network}
             title="محطات الجاهزية والسيناريوهات"
-            description="22 محطة انتقال موزّعة على 5 وجهات رشد، مع سيناريوهات غامرة (مقهى تدريبي، بيئة بيع رقمية، شقة مستقلة) لتوليد الأدلة العملياتية."
+            description="محطات التقدم الانتقالي موزّعة على مجالات الحياة بعد المدرسة، مع سيناريوهات واقعية (مقهى تدريبي، بيئة بيع رقمية، شقة مستقلة) لتوليد شواهد الأداء الميداني."
           />
           <FeatureCard
             icon={Compass}
             title="ورشة المخطط التأهيلي"
-            description="مولّد الأهداف الفردية المشتقة حوكمياً، متّبعاً مسار الوجهة → المسار النمائي → المحطة → المؤشر → السيناريو، مع متتبّع الإتقان والتعميم السياقي."
+            description="مولّد الأهداف الفردية ضمن الخطة الانتقالية، متّبعاً مسار: المجال ← مسار الانتقال ← محطة التقدم ← مؤشر الجاهزية ← السيناريو الواقعي، مع متتبّع الإتقان والتعميم السياقي."
           />
           <FeatureCard
             icon={FileDown}
-            title="وثائق الانتقال المعتمدة (ITP)"
-            description="استخراج وثيقة الانتقال المعتمدة والموحدة للطالب (ITP) جاهزة للاعتماد الرسمي، مع سجل صمام الأمان الحوكمي وحارس الكرامة (Rule 4)."
+            title="وثيقة الخطة الانتقالية الفردية (ITP)"
+            description="استخراج وثيقة الخطة الانتقالية الفردية للمتعلم جاهزة للاعتماد الرسمي، مع سجل مؤشر حماية جودة الحياة والكرامة."
           />
         </div>
       </section>
@@ -150,23 +156,24 @@ function LandingPage() {
                 نواة المحرك الذكي
               </div>
               <h2 className="text-3xl font-bold">
-                بوابة الخروج التكيفية ومحرك توصيات مسارات الرشد
+                بوابة الانتقال إلى ما بعد المدرسة ومحرك توصية مسار الدعم بعد التخرج
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                يحسب المحرك <strong className="text-foreground">معامل الاستقلالية الرقمي (IC)</strong> من
-                ملاحظات الميدان لحظياً، ثم يجمعه في <strong className="text-foreground">معاملات الجاهزية
-                التراكمية (DRC)</strong> لكل وجهة رشد، وتُقيَّم بوابة الخروج التلقائية لتوصية أحد مسارات
-                الرشد الستة عند بلوغ نافذة الانتقال الحرجة (+16).
+                يحسب المحرك <strong className="text-foreground">معامل الاستقلالية (IC)</strong> من
+                شواهد الأداء الميداني لحظياً، ثم يجمعه في
+                <strong className="text-foreground"> معامل الجاهزية الانتقالية (DRC)</strong> لكل
+                مجال من مجالات الحياة بعد المدرسة، وتُقيَّم بوابة الانتقال لتقديم توصية مسار الدعم
+                المناسب بعد التخرج عند بلوغ نافذة الانتقال (+16).
               </p>
               <ul className="space-y-2 text-sm">
-                <Bullet text="حارس الكرامة (Rule 4 Enforcer): تجميد التوجيه الإنتاجي عند تدني D5 < 0.50." />
-                <Bullet text="تنبيهات حوكمية تلقائية لاعتماد البيئات المجتمعية الحقيقية (CBI)." />
-                <Bullet text="متنبئات النجاح لـ NTACT:C مدمجة في التدقيق المؤسسي." />
+                <Bullet text="مؤشر حماية جودة الحياة والكرامة: تجميد التوجيه الإنتاجي عند تدني D5." />
+                <Bullet text="تنبيهات تلقائية لاعتماد السيناريوهات الواقعية في البيئات المجتمعية." />
+                <Bullet text="متنبئات النجاح المعتمدة دولياً مدمجة في التدقيق المؤسسي." />
               </ul>
             </div>
             <div className="rounded-2xl border bg-gradient-to-br from-primary/10 to-transparent p-6">
               <div className="space-y-3">
-                {["D1 العمل والإنتاج","D2 السكن المستقل","D3 المشاركة المجتمعية","D4 التعلم مدى الحياة","D5 الرفاهية والصحة"].map((d, i) => (
+                {["D1 العمل والمشاركة الاقتصادية","D2 العيش المستقل وإدارة الحياة اليومية","D3 المشاركة المجتمعية والانتماء","D4 تقرير المصير والاختيار الشخصي","D5 جودة الحياة والرفاهية"].map((d, i) => (
                   <div key={d} className="space-y-1">
                     <div className="flex justify-between text-xs text-muted-foreground">
                       <span>{d}</span>
@@ -178,7 +185,7 @@ function LandingPage() {
                   </div>
                 ))}
                 <p className="text-[11px] text-muted-foreground pt-2 text-center">
-                  عيّنة بصرية لمعاملات الجاهزية التراكمية DRC
+                  عيّنة بصرية لمعامل الجاهزية الانتقالية (DRC) لكل مجال حياتي
                 </p>
               </div>
             </div>
@@ -189,9 +196,9 @@ function LandingPage() {
       {/* CTA */}
       <section className="border-t bg-primary text-primary-foreground py-20">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold">جاهز لتفعيل بوابة الخروج التكيفية في مؤسستك؟</h2>
+          <h2 className="text-3xl font-bold">جاهز لتفعيل بوابة الانتقال إلى ما بعد المدرسة في مؤسستك؟</h2>
           <p className="mt-4 text-primary-foreground/80 max-w-xl mx-auto">
-            أنشئ حساباً وفعّل المؤسسة التجريبية لعرض ثلاثة متعلمين افتراضيين خلال 60 ثانية.
+            أنشئ حساباً وفعّل المؤسسة النموذجية لتجربة ثلاثة متعلمين نموذجيين خلال 60 ثانية.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link to="/auth">
@@ -206,7 +213,7 @@ function LandingPage() {
 
       <footer className="border-t bg-card py-8">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>© 2026 مسارهمم — Himam Transition Engine. جميع الحقوق محفوظة.</p>
+          <p>© 2026 مسار همم — Himam Transition Engine. جميع الحقوق محفوظة.</p>
         </div>
       </footer>
     </div>
