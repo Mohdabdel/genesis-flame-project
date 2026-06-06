@@ -15,6 +15,8 @@ import { toast } from "sonner";
 import type { Database } from "@/integrations/supabase/types";
 import { GovernanceAuditPanel } from "@/components/governance-audit-panel";
 import { ITPExportButton } from "@/components/itp-export";
+import { TransitionHelpAnchor } from "@/components/transition-help-anchor";
+import { destDisplay } from "@/lib/transition-lexicon";
 
 type AgeBand = Database["public"]["Enums"]["age_band_tier"];
 
@@ -171,8 +173,11 @@ function PlannerPage() {
       <div className="space-y-6">
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">ورشة المخطّط التربوي</h1>
-            <p className="text-muted-foreground">حدّد المتعلم، ثم أنشئ هدفاً فردياً متسلسلاً عبر الهيكل الحاكم.</p>
+            <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2 flex-wrap">
+              ورشة المخطّط التأهيلي
+              <TransitionHelpAnchor term="الأهداف الفردية" />
+            </h1>
+            <p className="text-muted-foreground">حدّد المتعلم، ثم اصنع هدفاً فردياً ضمن الخطة الانتقالية عبر: مجال الحياة ← مسار الانتقال ← محطة التقدم ← مؤشر الجاهزية ← السيناريو الواقعي.</p>
           </div>
           <ITPExportButton
             learnerId={selectedLearner}
@@ -212,41 +217,41 @@ function PlannerPage() {
         {/* IEP Builder */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Sparkles className="h-5 w-5 text-primary" />مولّد الأهداف الفردية المشتقة حوكمياً (المنسوجة سياقياً)</CardTitle>
+            <CardTitle className="flex items-center gap-2 flex-wrap"><Sparkles className="h-5 w-5 text-primary" />مولّد الأهداف الفردية ضمن الخطة الانتقالية<TransitionHelpAnchor term="الأهداف الفردية" /></CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Step n={1} label="الوجهة">
+            <Step n={1} label="مجال الحياة بعد المدرسة" helpTerm="مجالات الحياة بعد المدرسة">
               <Select value={destId} onValueChange={(v) => { setDestId(v); setPathwayId(""); setStationId(""); setIndicatorId(""); }} disabled={!selectedLearner}>
-                <SelectTrigger><SelectValue placeholder="اختر وجهة حياتية" /></SelectTrigger>
-                <SelectContent>{destinations?.map((d: any) => <SelectItem key={d.destination_id} value={d.destination_id}>{d.name_ar}</SelectItem>)}</SelectContent>
+                <SelectTrigger><SelectValue placeholder="اختر مجالاً من مجالات الحياة بعد المدرسة" /></SelectTrigger>
+                <SelectContent>{destinations?.map((d: any) => <SelectItem key={d.destination_id} value={d.destination_id}>{destDisplay(d.destination_id, d.name_ar)}</SelectItem>)}</SelectContent>
               </Select>
             </Step>
-            <Step n={2} label="المسار النمائي" done={!!destId}>
+            <Step n={2} label="مسار الانتقال" done={!!destId} helpTerm="مسارات الانتقال">
               <Select value={pathwayId} onValueChange={(v) => { setPathwayId(v); setStationId(""); setIndicatorId(""); }} disabled={!destId}>
-                <SelectTrigger><SelectValue placeholder="اختر مساراً" /></SelectTrigger>
+                <SelectTrigger><SelectValue placeholder="اختر مسار انتقال" /></SelectTrigger>
                 <SelectContent>{pathways?.filter((p: any) => p.destination_id === destId).map((p: any) => <SelectItem key={p.pathway_id} value={p.pathway_id}>{p.title_ar}</SelectItem>)}</SelectContent>
               </Select>
             </Step>
-            <Step n={3} label="المحطة الانتقالية" done={!!pathwayId}>
+            <Step n={3} label="محطة التقدم الانتقالي" done={!!pathwayId} helpTerm="محطات التقدم الانتقالي">
               <Select value={stationId} onValueChange={(v) => { setStationId(v); setIndicatorId(""); }} disabled={!pathwayId}>
                 <SelectTrigger><SelectValue placeholder="اختر محطة" /></SelectTrigger>
                 <SelectContent>{stations?.filter((s: any) => s.pathway_id === pathwayId).map((s: any) => <SelectItem key={s.station_id} value={s.station_id}>{s.name_ar}</SelectItem>)}</SelectContent>
               </Select>
             </Step>
-            <Step n={4} label={`المؤشر (مفلتر حسب الفئة ${ageBand ?? "—"})`} done={!!stationId}>
+            <Step n={4} label={`مؤشر الجاهزية حسب المرحلة العمرية (${ageBand ?? "—"})`} done={!!stationId} helpTerm="مؤشرات الجاهزية">
               <Select value={indicatorId} onValueChange={setIndicatorId} disabled={!stationId || indicators.length === 0}>
                 <SelectTrigger><SelectValue placeholder={indicators.length === 0 ? "لا توجد مؤشرات لهذه الفئة العمرية" : "اختر مؤشراً"} /></SelectTrigger>
                 <SelectContent>{indicators.map((i: any) => <SelectItem key={i.indicator_id} value={i.indicator_id}>{i.description_ar}</SelectItem>)}</SelectContent>
               </Select>
             </Step>
-            <Step n={5} label="السيناريو" done={!!indicatorId}>
+            <Step n={5} label="السيناريو الواقعي" done={!!indicatorId} helpTerm="السيناريوهات الواقعية">
               <Select value={scenarioId} onValueChange={setScenarioId} disabled={!indicatorId}>
                 <SelectTrigger><SelectValue placeholder={scenarios?.length ? "اختر سيناريو" : "لا توجد سيناريوهات بعد"} /></SelectTrigger>
                 <SelectContent>{scenarios?.map((s: any) => <SelectItem key={s.scenario_id} value={s.scenario_id}>{s.title_ar}</SelectItem>)}</SelectContent>
               </Select>
             </Step>
             <div className="space-y-2">
-              <Label>صياغة الهدف الفردي المشتق حوكمياً</Label>
+              <Label className="flex items-center gap-2">صياغة الهدف الفردي ضمن الخطة الانتقالية <TransitionHelpAnchor term="الأهداف الفردية" /></Label>
               <Textarea value={iepGoal} onChange={(e) => setIepGoal(e.target.value)} rows={3} placeholder="مثال: سيُتقن المتعلم استخدام تطبيق المواصلات الذكية باستقلالية في 4 رحلات متتالية..." />
             </div>
             <Button disabled={!canCreate || createObjective.isPending} onClick={() => createObjective.mutate()} className="w-full">
@@ -259,7 +264,7 @@ function PlannerPage() {
         {selectedLearner && (
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2"><Trophy className="h-5 w-5 text-primary" />متتبّع الإتقان والتعميم السياقي</CardTitle>
+              <CardTitle className="flex items-center gap-2 flex-wrap"><Trophy className="h-5 w-5 text-primary" />متتبّع الإتقان والتعميم السياقي<TransitionHelpAnchor term="شواهد الأداء الميداني" /></CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {masteryLoading && (
@@ -314,7 +319,7 @@ function PlannerPage() {
   );
 }
 
-function Step({ n, label, done, children }: { n: number; label: string; done?: boolean; children: React.ReactNode }) {
+function Step({ n, label, done, children, helpTerm }: { n: number; label: string; done?: boolean; children: React.ReactNode; helpTerm?: string }) {
   return (
     <div className="space-y-2">
       <div className="flex items-center gap-2 text-sm font-medium">
@@ -322,6 +327,7 @@ function Step({ n, label, done, children }: { n: number; label: string; done?: b
           {done ? <CheckCircle2 className="h-3.5 w-3.5" /> : n}
         </span>
         <span>{label}</span>
+        {helpTerm && <TransitionHelpAnchor term={helpTerm} />}
       </div>
       {children}
     </div>

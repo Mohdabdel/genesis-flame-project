@@ -10,6 +10,8 @@ import { AlertTriangle, Compass, Target, Users, Sparkles, ShieldAlert, ShieldChe
 import { toast } from "sonner";
 import { GovernanceAuditPanel } from "@/components/governance-audit-panel";
 import { ITPExportButton } from "@/components/itp-export";
+import { TransitionHelpAnchor } from "@/components/transition-help-anchor";
+import { destDisplay } from "@/lib/transition-lexicon";
 
 export const Route = createFileRoute("/_authenticated/dashboard/engine")({
   component: EnginePage,
@@ -139,7 +141,7 @@ function EnginePage() {
       if (age !== null && age >= 16 && !learnerD1Map.get(l.learner_id)) {
         alerts.push({
           level: "error",
-          msg: `المتعلم ${l.first_name} ${l.last_name} (${Math.floor(age)} سنة): يفتقر إلى مهام في البيئات المهنية الخارجية (D1).`,
+          msg: `المتعلم ${l.first_name} ${l.last_name} (${Math.floor(age)} سنة): يفتقر إلى أهداف فردية في مجال العمل والمشاركة الاقتصادية (D1) ضمن سيناريوهات واقعية.`,
         });
       }
     });
@@ -147,7 +149,7 @@ function EnginePage() {
   if (guardrailActive) {
     alerts.push({
       level: "error",
-      msg: "[GOVERNANCE_BADGE]: تفعيل صمام الأمان الحوكمي وحارس الكرامة (Rule 4 Enforcer) نظراً لتدني مؤشرات الرفاهية والأمن النفسي (D5 < 0.50). تم تجميد مسارات التوجيه الإنتاجي والعمل الشاق مؤقتاً، وفرض مصفوفة الدعم الأسري والنفسي المتكامل كأولوية قصوى.",
+      msg: "[GOVERNANCE_BADGE]: تفعيل مؤشر حماية جودة الحياة والكرامة نظراً لتدني مؤشرات جودة الحياة والرفاهية (D5 < 0.50). تم تجميد توصيات التوجيه الإنتاجي والمهام الشاقة مؤقتاً، وفرض مصفوفة الدعم الأسري والنفسي المتكامل كأولوية قصوى.",
     });
   }
 
@@ -157,9 +159,10 @@ function EnginePage() {
         <div>
           <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2">
             <Compass className="h-6 w-6 text-primary" />
-            محرك توصيات مسارات الرشد — لوحة المشرف
+            بوابة الانتقال إلى ما بعد المدرسة — لوحة المشرف
+            <TransitionHelpAnchor term="بوابة الانتقال إلى ما بعد المدرسة" />
           </h1>
-          <p className="text-muted-foreground mt-1">قراءة جاهزية المتعلمين عبر الغايات النهائية للحياة / وجهات الرشد الثابتة (D1-D5) وتوجيه بوابة الخروج التكيفية.</p>
+          <p className="text-muted-foreground mt-1">قراءة جاهزية المتعلمين عبر مجالات الحياة بعد المدرسة (D1–D5) وتوجيه توصية مسار الدعم بعد التخرج.</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap min-w-[240px]">
           <ITPExportButton learnerId={learnerId} />
@@ -191,13 +194,14 @@ function EnginePage() {
               <ShieldCheck className="h-6 w-6 text-emerald-500 shrink-0 mt-0.5" />
             )}
             <div className="flex-1">
-              <p className="font-semibold">
-                {guardrailActive ? "🚨 [GOVERNANCE_BADGE] صمام الأمان الحوكمي وحارس الكرامة (Rule 4 Enforcer) مُفعَّل" : "صمام الأمان الحوكمي وحارس الكرامة (Rule 4 Enforcer): غير مُفعَّل"}
+              <p className="font-semibold flex items-center gap-2 flex-wrap">
+                {guardrailActive ? "🚨 [GOVERNANCE_BADGE] مؤشر حماية جودة الحياة والكرامة مُفعَّل" : "مؤشر حماية جودة الحياة والكرامة: غير مُفعَّل"}
+                <TransitionHelpAnchor term="جودة الحياة والرفاهية" />
               </p>
               <p className="text-sm text-muted-foreground mt-0.5">
                 {guardrailActive
-                  ? `تفعيل صمام الأمان الحوكمي وحارس الكرامة (Rule 4 Enforcer) نظراً لتدني مؤشرات الرفاهية والأمن النفسي (D5 = ${(d5! * 100).toFixed(0)}% < 0.50). تم تجميد مسارات التوجيه الإنتاجي والعمل الشاق مؤقتاً، وفرض مصفوفة الدعم الأسري والنفسي المتكامل كأولوية قصوى.`
-                  : "مؤشر الرفاهية والأمن النفسي (D5) يستوفي العتبة الحوكمية. توصيات بوابة الخروج التكيفية نشطة."}
+                  ? `تفعيل مؤشر حماية جودة الحياة والكرامة نظراً لتدني مؤشرات جودة الحياة والرفاهية (D5 = ${(d5! * 100).toFixed(0)}% < 0.50). تم تجميد توصيات التوجيه الإنتاجي والمهام الشاقة مؤقتاً، وفرض مصفوفة الدعم الأسري والنفسي المتكامل كأولوية قصوى.`
+                  : "مؤشر جودة الحياة والرفاهية (D5) يستوفي العتبة الحوكمية. توصية مسار الدعم بعد التخرج نشطة."}
               </p>
             </div>
           </CardContent>
@@ -209,7 +213,8 @@ function EnginePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Target className="h-5 w-5 text-primary" />
-            بوابة الخروج التكيفية — توصية مسار الرشد المعتمد
+            بوابة الانتقال إلى ما بعد المدرسة — توصية مسار الدعم بعد التخرج
+            <TransitionHelpAnchor term="توصية مسار الدعم بعد التخرج" />
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -230,14 +235,14 @@ function EnginePage() {
                       {track.replace(/^TRACK_/, "T")}
                     </Badge>
                     {guardrailActive && (
-                      <Badge variant="destructive">🚨 موقوفة بصمام الأمان الحوكمي (Rule 4)</Badge>
+                      <Badge variant="destructive">🚨 موقوفة بمؤشر حماية جودة الحياة والكرامة</Badge>
                     )}
                   </div>
                   <p className="text-lg font-bold">{TRACK_INFO[track].ar}</p>
                   <p className="text-sm text-muted-foreground" dir="ltr">{TRACK_INFO[track].en}</p>
                 </div>
               )}
-              <p className="text-xs text-muted-foreground">محسوبة وفق معاملات الجاهزية التراكمية (DRC) لوجهات الرشد الثابتة (D1-D5) وعتبات الحوكمة المؤسسية.</p>
+              <p className="text-xs text-muted-foreground">محسوبة وفق معامل الجاهزية الانتقالية (DRC) لمجالات الحياة بعد المدرسة (D1–D5) وعتبات الحوكمة المؤسسية.</p>
             </div>
           )}
         </CardContent>
@@ -250,11 +255,11 @@ function EnginePage() {
             <Compass className="h-10 w-10 mx-auto text-muted-foreground" />
             <p className="text-base font-semibold">رادار الجاهزية غير مُفعَّل</p>
             <p className="text-sm text-muted-foreground max-w-xl mx-auto leading-relaxed">
-              يرجى اختيار ملف المتعلم الافتراضي لتنشيط رادار الجاهزية وحساب معاملات الجاهزية التراكمية (DRC) لوجهات الرشد الثابتة (D1–D5) حياً.
+              يرجى اختيار ملف المتعلم لتنشيط رادار الجاهزية وحساب معامل الجاهزية الانتقالية (DRC) لمجالات الحياة بعد المدرسة (D1–D5) لحظياً.
             </p>
             <div className="flex justify-center gap-2 flex-wrap pt-2">
               {destinations?.map((d: any) => (
-                <Badge key={d.destination_id} variant="outline" className="font-mono">{d.destination_id} · {d.name_ar}</Badge>
+                <Badge key={d.destination_id} variant="outline" className="font-mono">{d.destination_id} · {destDisplay(d.destination_id, d.name_ar)}</Badge>
               ))}
             </div>
           </CardContent>
@@ -279,7 +284,7 @@ function EnginePage() {
                       <Badge variant="destructive" className="text-[10px]">حرج</Badge>
                     )}
                   </div>
-                  <CardTitle className="text-base leading-tight">{d.name_ar}</CardTitle>
+                  <CardTitle className="text-base leading-tight">{destDisplay(d.destination_id, d.name_ar)}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex items-center gap-3">
@@ -320,7 +325,7 @@ function EnginePage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm flex items-center gap-2"><Target className="h-4 w-4" />الأهداف الفردية المشتقة حوكمياً</CardTitle>
+            <CardTitle className="text-sm flex items-center gap-2"><Target className="h-4 w-4" />الأهداف الفردية ضمن الخطة الانتقالية</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{objectives?.filter((o: any) => o.is_active).length ?? 0}</div>
@@ -328,7 +333,7 @@ function EnginePage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm flex items-center gap-2"><AlertTriangle className="h-4 w-4 text-warning" />تنبيهات الحوكمة</CardTitle>
+            <CardTitle className="text-sm flex items-center gap-2"><AlertTriangle className="h-4 w-4 text-warning" />مؤشرات حماية الجاهزية والكرامة</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{alerts.length}</div>

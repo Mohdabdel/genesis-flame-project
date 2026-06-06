@@ -18,6 +18,7 @@ import { Route as AuthenticatedDashboardTrainingRouteImport } from './routes/_au
 import { Route as AuthenticatedDashboardSettingsRouteImport } from './routes/_authenticated/dashboard.settings'
 import { Route as AuthenticatedDashboardProjectsRouteImport } from './routes/_authenticated/dashboard.projects'
 import { Route as AuthenticatedDashboardPlannerRouteImport } from './routes/_authenticated/dashboard.planner'
+import { Route as AuthenticatedDashboardGuidebookRouteImport } from './routes/_authenticated/dashboard.guidebook'
 import { Route as AuthenticatedDashboardFieldRouteImport } from './routes/_authenticated/dashboard.field'
 import { Route as AuthenticatedDashboardEngineRouteImport } from './routes/_authenticated/dashboard.engine'
 import { Route as AuthenticatedDashboardAssessmentsRouteImport } from './routes/_authenticated/dashboard.assessments'
@@ -71,6 +72,12 @@ const AuthenticatedDashboardPlannerRoute =
     path: '/planner',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardGuidebookRoute =
+  AuthenticatedDashboardGuidebookRouteImport.update({
+    id: '/guidebook',
+    path: '/guidebook',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 const AuthenticatedDashboardFieldRoute =
   AuthenticatedDashboardFieldRouteImport.update({
     id: '/field',
@@ -97,6 +104,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/assessments': typeof AuthenticatedDashboardAssessmentsRoute
   '/dashboard/engine': typeof AuthenticatedDashboardEngineRoute
   '/dashboard/field': typeof AuthenticatedDashboardFieldRoute
+  '/dashboard/guidebook': typeof AuthenticatedDashboardGuidebookRoute
   '/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/dashboard/projects': typeof AuthenticatedDashboardProjectsRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
@@ -109,6 +117,7 @@ export interface FileRoutesByTo {
   '/dashboard/assessments': typeof AuthenticatedDashboardAssessmentsRoute
   '/dashboard/engine': typeof AuthenticatedDashboardEngineRoute
   '/dashboard/field': typeof AuthenticatedDashboardFieldRoute
+  '/dashboard/guidebook': typeof AuthenticatedDashboardGuidebookRoute
   '/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/dashboard/projects': typeof AuthenticatedDashboardProjectsRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
@@ -124,6 +133,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/assessments': typeof AuthenticatedDashboardAssessmentsRoute
   '/_authenticated/dashboard/engine': typeof AuthenticatedDashboardEngineRoute
   '/_authenticated/dashboard/field': typeof AuthenticatedDashboardFieldRoute
+  '/_authenticated/dashboard/guidebook': typeof AuthenticatedDashboardGuidebookRoute
   '/_authenticated/dashboard/planner': typeof AuthenticatedDashboardPlannerRoute
   '/_authenticated/dashboard/projects': typeof AuthenticatedDashboardProjectsRoute
   '/_authenticated/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
@@ -139,6 +149,7 @@ export interface FileRouteTypes {
     | '/dashboard/assessments'
     | '/dashboard/engine'
     | '/dashboard/field'
+    | '/dashboard/guidebook'
     | '/dashboard/planner'
     | '/dashboard/projects'
     | '/dashboard/settings'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/dashboard/assessments'
     | '/dashboard/engine'
     | '/dashboard/field'
+    | '/dashboard/guidebook'
     | '/dashboard/planner'
     | '/dashboard/projects'
     | '/dashboard/settings'
@@ -165,6 +177,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/assessments'
     | '/_authenticated/dashboard/engine'
     | '/_authenticated/dashboard/field'
+    | '/_authenticated/dashboard/guidebook'
     | '/_authenticated/dashboard/planner'
     | '/_authenticated/dashboard/projects'
     | '/_authenticated/dashboard/settings'
@@ -243,6 +256,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardPlannerRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/guidebook': {
+      id: '/_authenticated/dashboard/guidebook'
+      path: '/guidebook'
+      fullPath: '/dashboard/guidebook'
+      preLoaderRoute: typeof AuthenticatedDashboardGuidebookRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
     '/_authenticated/dashboard/field': {
       id: '/_authenticated/dashboard/field'
       path: '/field'
@@ -271,6 +291,7 @@ interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardAssessmentsRoute: typeof AuthenticatedDashboardAssessmentsRoute
   AuthenticatedDashboardEngineRoute: typeof AuthenticatedDashboardEngineRoute
   AuthenticatedDashboardFieldRoute: typeof AuthenticatedDashboardFieldRoute
+  AuthenticatedDashboardGuidebookRoute: typeof AuthenticatedDashboardGuidebookRoute
   AuthenticatedDashboardPlannerRoute: typeof AuthenticatedDashboardPlannerRoute
   AuthenticatedDashboardProjectsRoute: typeof AuthenticatedDashboardProjectsRoute
   AuthenticatedDashboardSettingsRoute: typeof AuthenticatedDashboardSettingsRoute
@@ -284,6 +305,7 @@ const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
       AuthenticatedDashboardAssessmentsRoute,
     AuthenticatedDashboardEngineRoute: AuthenticatedDashboardEngineRoute,
     AuthenticatedDashboardFieldRoute: AuthenticatedDashboardFieldRoute,
+    AuthenticatedDashboardGuidebookRoute: AuthenticatedDashboardGuidebookRoute,
     AuthenticatedDashboardPlannerRoute: AuthenticatedDashboardPlannerRoute,
     AuthenticatedDashboardProjectsRoute: AuthenticatedDashboardProjectsRoute,
     AuthenticatedDashboardSettingsRoute: AuthenticatedDashboardSettingsRoute,
