@@ -385,7 +385,7 @@ function buildFindings({ age, objectives, scenarioMap }: { age: number | null; o
   if (!inTransition) return findings;
   const total = objectives.length;
   if (total === 0) {
-    findings.push({ code: "ALERT_PRED_00", severity: "critical", title_ar: "لا أهداف فردية نشطة", detail_ar: "نافذة الانتقال نشطة دون أي هدف IEP.", predictor_en: "NTACT:C — IEP coverage" });
+    findings.push({ code: "ALERT_PRED_00", severity: "critical", title_ar: "لا أهداف فردية مشتقة حوكمياً نشطة", detail_ar: "نافذة الانتقال الحرجة نشطة دون أي هدف فردي مشتق حوكمياً.", predictor_en: "NTACT:C — Governed Objectives coverage" });
     return findings;
   }
   let community = 0, work = 0;
@@ -397,10 +397,10 @@ function buildFindings({ age, objectives, scenarioMap }: { age: number | null; o
     const destId = o.indicators?.age_expectations?.transition_stations?.pathways?.destination_id;
     if (destId) destCounts[destId] = (destCounts[destId] ?? 0) + 1;
   });
-  if (community === 0) findings.push({ code: "ALERT_PRED_04", severity: "critical", title_ar: "اعتماد مفرط على البيئات الصفّية", detail_ar: `جميع الأهداف (${total}) صفّية بدون CBI مجتمعي.`, predictor_en: "Community-Based Instruction (CBI) absent" });
-  else if (community / total < 0.3) findings.push({ code: "ALERT_PRED_04B", severity: "warning", title_ar: "تغطية مجتمعية محدودة", detail_ar: `${community}/${total} (${Math.round((community / total) * 100)}%) فقط في بيئات مجتمعية.`, predictor_en: "CBI below 30% threshold" });
-  if (work === 0) findings.push({ code: "ALERT_PRED_01", severity: "critical", title_ar: "غياب خبرة العمل المأجور", detail_ar: "لا توجد سيناريوهات عمل/توظيف.", predictor_en: "Paid Work Experience missing" });
-  if (!destCounts["D1"]) findings.push({ code: "ALERT_PRED_02", severity: "warning", title_ar: "لا أهداف في D1", detail_ar: "غياب التعاون بين الوكالات في وجهة العمل.", predictor_en: "Interagency Collaboration / D1" });
-  if (!destCounts["D3"] && !destCounts["D4"]) findings.push({ code: "ALERT_PRED_03", severity: "warning", title_ar: "غياب السكن/المشاركة المدنية", detail_ar: "لا تغطية في D3 أو D4.", predictor_en: "Independent Living & Civic" });
+  if (community === 0) findings.push({ code: "ALERT_PRED_04", severity: "critical", title_ar: "اعتماد مفرط على البيئات الصفّية والمحاكاة النظرية", detail_ar: `[ALERT_PRED_04]: تم رصد اعتماد مفرط على البيئات الصفية والمحاكاة النظرية داخل نافذة الانتقال الحرجة (+16). الخطة الحالية تفتقر لوسوم البيئة الحقيقية (CBI). الإجراء المطلوب: ربط المهارة فوراً بسيناريو ميداني نشط. (${total} أهداف صفّية)`, predictor_en: "NTACT:C — Community-Based Instruction (CBI) absent" });
+  else if (community / total < 0.3) findings.push({ code: "ALERT_PRED_04B", severity: "warning", title_ar: "تغطية مجتمعية محدودة", detail_ar: `${community}/${total} (${Math.round((community / total) * 100)}%) فقط في بيئات مجتمعية حقيقية (CBI). الموصى به حوكمياً 30% فأكثر.`, predictor_en: "NTACT:C — CBI below 30% threshold" });
+  if (work === 0) findings.push({ code: "ALERT_PRED_01", severity: "critical", title_ar: "غياب خبرة العمل المأجور", detail_ar: "لا توجد سيناريوهات عمل/توظيف. خبرة العمل المأجور من أقوى متنبئات النجاح لـ NTACT:C.", predictor_en: "NTACT:C Success Predictor — Paid Work Experience missing" });
+  if (!destCounts["D1"]) findings.push({ code: "ALERT_PRED_02", severity: "warning", title_ar: "لا أهداف في وجهة الرشد D1 (العمل والإنتاج)", detail_ar: "غياب التعاون بين الوكالات في وجهة الرشد الثابتة للعمل والإنتاج.", predictor_en: "NTACT:C — Interagency Collaboration / D1" });
+  if (!destCounts["D3"] && !destCounts["D4"]) findings.push({ code: "ALERT_PRED_03", severity: "warning", title_ar: "غياب السكن المستقل والمشاركة المدنية", detail_ar: "لا تغطية في وجهتَي الرشد الثابتة D3 (السكن المستقل) أو D4 (المشاركة المدنية).", predictor_en: "NTACT:C — Independent Living & Civic" });
   return findings;
 }
