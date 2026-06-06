@@ -9,6 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/auth")({
   component: AuthPage,
@@ -16,6 +17,13 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const [activeTab, setActiveTab] = useState("login");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) navigate({ to: "/dashboard" });
+    });
+  }, [navigate]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
