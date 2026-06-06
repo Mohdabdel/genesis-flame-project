@@ -15,7 +15,13 @@ const TRACK_INFO: Record<string, { ar: string; en: string }> = {
   TRACK_6_BLENDED_PROFILE_MATRIX: { ar: "ملف المسارات المختلطة التكيفي", en: "Blended Support Profiles Matrix" },
 };
 
-const DEST_AR: Record<string, string> = { D1: "العمل والإنتاج", D2: "السكن المستقل", D3: "المشاركة المجتمعية", D4: "التعلم مدى الحياة", D5: "الرفاهية والصحة" };
+const DEST_AR: Record<string, string> = {
+  D1: "العمل والمشاركة الاقتصادية",
+  D2: "العيش المستقل وإدارة الحياة اليومية",
+  D3: "المشاركة المجتمعية والانتماء",
+  D4: "تقرير المصير والاختيار الشخصي",
+  D5: "جودة الحياة والرفاهية",
+};
 
 function ageYears(dob?: string | null): number | null {
   if (!dob) return null;
@@ -55,19 +61,19 @@ export function ITPExportButton({
           !selectedLearner
             ? "اختر ملف متعلم أولاً"
             : hasActivePlan === false
-              ? "لا توجد أهداف فردية نشطة لهذا المتعلم"
+              ? "لا توجد أهداف فردية ضمن الخطة الانتقالية نشطة لهذا المتعلم"
               : undefined
         }
       >
         <FileDown className="h-4 w-4" />
-        استخراج وثيقة الانتقال المعتمدة والموحدة
-        <span className="hidden md:inline opacity-70" dir="ltr">/ Export Official ITP Document</span>
+        استخراج وثيقة الخطة الانتقالية الفردية (ITP)
+        <span className="hidden md:inline opacity-70" dir="ltr">/ Export Individual Transition Plan</span>
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-5xl max-h-[92vh] overflow-y-auto p-0 itp-no-print">
           <DialogHeader className="sticky top-0 z-10 bg-background border-b p-4 itp-no-print">
             <div className="flex items-center justify-between gap-3 flex-wrap">
-              <DialogTitle>وثيقة الانتقال المعتمدة والموحدة للطالب (ITP Official Document)</DialogTitle>
+              <DialogTitle>وثيقة الخطة الانتقالية الفردية للمتعلم (ITP Official Document)</DialogTitle>
               <Button onClick={() => window.print()} className="gap-2">
                 <Printer className="h-4 w-4" /> طباعة / حفظ PDF
               </Button>
@@ -145,7 +151,7 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
 
   // success toast once
   useEffect(() => {
-    if (ready) toast.success("تم تجميع وثيقة الانتقال المعتمدة والموحدة للطالب من قاعدة البيانات");
+    if (ready) toast.success("تم تجميع وثيقة الخطة الانتقالية الفردية للمتعلم من قاعدة البيانات");
   }, [ready]);
 
   const d5 = drc?.D5 ?? null;
@@ -188,7 +194,7 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
       <header className="border-b-2 border-black pb-4 mb-6 break-inside-avoid">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">وثيقة الانتقال المعتمدة والموحدة للطالب</h1>
+            <h1 className="text-2xl font-bold tracking-tight">وثيقة الخطة الانتقالية الفردية للمتعلم</h1>
             <p className="text-sm opacity-70" dir="ltr">ITP Official Document — Individualized Transition Program — Certified Record</p>
           </div>
           <div className="text-left text-xs space-y-0.5">
@@ -218,7 +224,7 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
 
       {/* DRC bars */}
       <section className="mb-6 break-inside-avoid">
-        <SectionTitle ar="معاملات الجاهزية التراكمية لوجهات الرشد الثابتة (DRC — D1..D5)" en="Destination Readiness Coefficients — Adult Life Destinations D1..D5" />
+        <SectionTitle ar="معامل الجاهزية الانتقالية (DRC) لمجالات الحياة بعد المدرسة (D1..D5)" en="Destination Readiness Coefficients — Post-School Life Domains D1..D5" />
         <div className="space-y-2">
           {destinations!.map((d: any) => {
             const v = drc?.[d.destination_id] ?? 0;
@@ -239,7 +245,7 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
 
       {/* Gateway recommendation */}
       <section className="mb-6 break-inside-avoid">
-        <SectionTitle ar="بوابة الخروج التكيفية — محرك توصيات مسارات الرشد" en="Adaptive Exit Gateway — Adult Pathway Recommendation Engine" />
+        <SectionTitle ar="بوابة الانتقال إلى ما بعد المدرسة — توصية مسار الدعم بعد التخرج" en="Post-School Transition Gateway — Support Track Recommendation" />
         {!inTransition && (
           <p className="text-sm opacity-70">نافذة الانتقال تبدأ في سن 16. لم تُحسب توصية حتمية بعد.</p>
         )}
@@ -252,10 +258,10 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
               <p className="text-sm opacity-80" dir="ltr">{TRACK_INFO[track].en}</p>
             </div>
             <div className="text-xs text-left space-y-1">
-              <div className="inline-flex items-center gap-1 border border-black px-2 py-0.5 rounded">شارة الحوكمة المعتمدة</div>
+              <div className="inline-flex items-center gap-1 border border-black px-2 py-0.5 rounded">شارة الاعتماد الحوكمي</div>
               {guardrail ? (
                 <div className="inline-flex items-center gap-1 bg-black text-white px-2 py-0.5 rounded">
-                  <ShieldAlert className="h-3 w-3" /> صمام الأمان الحوكمي (Rule 4) مُفعَّل
+                  <ShieldAlert className="h-3 w-3" /> مؤشر حماية جودة الحياة والكرامة مُفعَّل
                 </div>
               ) : (
                 <div className="inline-flex items-center gap-1 border border-black/60 px-2 py-0.5 rounded">
@@ -267,20 +273,20 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
         )}
         {/* Safety override log */}
         <div className="mt-2 text-xs border-r-2 border-black/40 pr-3">
-          <p className="font-semibold">سجل صمام الأمان الحوكمي وحارس الكرامة (Rule 4 Enforcer):</p>
+          <p className="font-semibold">سجل مؤشر حماية جودة الحياة والكرامة:</p>
           <p>
-            مؤشر الرفاهية والأمن النفسي D5 = {d5 !== null ? `${Math.round(d5 * 100)}%` : "—"} —
+            مؤشر جودة الحياة والرفاهية D5 = {d5 !== null ? `${Math.round(d5 * 100)}%` : "—"} —
             {guardrail
-              ? " [GOVERNANCE_BADGE]: تفعيل صمام الأمان الحوكمي وحارس الكرامة (Rule 4 Enforcer) نظراً لتدني مؤشرات الرفاهية والأمن النفسي (D5 < 0.50). تم تجميد مسارات التوجيه الإنتاجي والعمل الشاق مؤقتاً، وفرض مصفوفة الدعم الأسري والنفسي المتكامل كأولوية قصوى."
-              : " ضمن العتبة الحوكمية. توصية بوابة الخروج التكيفية نشطة."}
+              ? " [GOVERNANCE_BADGE]: تفعيل مؤشر حماية جودة الحياة والكرامة نظراً لتدني مؤشرات جودة الحياة والرفاهية (D5 < 0.50). تم تجميد توصيات التوجيه الإنتاجي والمهام الشاقة مؤقتاً، وفرض مصفوفة الدعم الأسري والنفسي المتكامل كأولوية قصوى."
+              : " ضمن العتبة الحوكمية. توصية مسار الدعم بعد التخرج نشطة."}
           </p>
         </div>
       </section>
 
       {/* IEP objectives grouped by destination */}
       <section className="mb-6">
-        <SectionTitle ar="الأهداف الفردية المشتقة حوكمياً (المنسوجة سياقياً)" en="Governance-Derived Individual Objectives — Destination → Pathway → Station → Indicator → Scenario" />
-        {(objectives ?? []).length === 0 && <p className="text-sm opacity-70">لا توجد أهداف نشطة مسجّلة.</p>}
+        <SectionTitle ar="الأهداف الفردية ضمن الخطة الانتقالية" en="Individual Transition Objectives — Life Domain → Pathway → Station → Indicator → Real-Life Scenario" />
+        {(objectives ?? []).length === 0 && <p className="text-sm opacity-70">لا توجد أهداف فردية نشطة مسجّلة.</p>}
         <div className="space-y-3">
           {(objectives ?? []).map((o: any) => {
             const ind = o.indicators;
@@ -318,20 +324,20 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
 
       {/* Evidence & Context Verification Logs */}
       <section className="mb-6 break-inside-avoid">
-        <SectionTitle ar="سجلات الأدلة والتحقق السياقي" en="Evidence & Context Verification Logs" />
+        <SectionTitle ar="شواهد الأداء الميداني والتحقق السياقي" en="Field Performance Evidence & Context Verification Logs" />
         <div className="grid grid-cols-3 gap-3 text-sm">
           <Stat label="إجمالي المحاولات الموثّقة" value={evidenceStats.trials} />
-          <Stat label="محاولات بمعامل استقلالية رقمي (IC) ≥ 90%" value={evidenceStats.highTrials} />
-          <Stat label="بيئات سيناريوهات متمايزة (تعميم سياقي)" value={evidenceStats.uniqueScenarios} />
+          <Stat label="محاولات بمعامل استقلالية (IC) ≥ 90%" value={evidenceStats.highTrials} />
+          <Stat label="سيناريوهات واقعية متمايزة (تعميم سياقي)" value={evidenceStats.uniqueScenarios} />
         </div>
       </section>
 
       {/* Governance audit */}
       <section className="mb-6 break-inside-avoid">
-        <SectionTitle ar="سجل التدقيق والحوكمة" en="Governance & Compliance Audit" />
+        <SectionTitle ar="سجل التدقيق وحوكمة الخطة الانتقالية" en="Transition Plan Governance & Compliance Audit" />
         {findings.length === 0 ? (
           <div className="border border-black/40 rounded p-3 text-sm flex items-center gap-2">
-            <ShieldCheck className="h-4 w-4" /> الخطة تستوفي المؤشرات التنبؤية للنجاح / متنبئات النجاح لـ NTACT:C القائمة على الدليل.
+            <ShieldCheck className="h-4 w-4" /> الخطة الانتقالية تستوفي متنبئات النجاح المعتمدة دولياً.
           </div>
         ) : (
           <ul className="space-y-2">
@@ -353,7 +359,7 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
       {/* Signatures */}
       <section className="mt-10 break-inside-avoid">
         <div className="grid grid-cols-3 gap-8 text-xs">
-          {["المخطط التربوي", "ولي الأمر", "المنسّق الانتقالي"].map((role) => (
+          {["المخطط التأهيلي", "ولي الأمر", "المنسّق الانتقالي"].map((role) => (
             <div key={role} className="border-t border-black pt-2 text-center">
               <p className="font-semibold">{role}</p>
               <p className="opacity-60 mt-6">التوقيع: ____________________</p>
