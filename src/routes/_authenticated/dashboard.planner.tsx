@@ -209,7 +209,7 @@ function PlannerPage() {
         {/* IEP Builder */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><Sparkles className="h-5 w-5 text-primary" />مولّد الهدف الفردي IEP</CardTitle>
+            <CardTitle className="flex items-center gap-2"><Sparkles className="h-5 w-5 text-primary" />مولّد الأهداف الفردية المشتقة حوكمياً (المنسوجة سياقياً)</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <Step n={1} label="الوجهة">
@@ -243,7 +243,7 @@ function PlannerPage() {
               </Select>
             </Step>
             <div className="space-y-2">
-              <Label>صياغة الهدف (IEP)</Label>
+              <Label>صياغة الهدف الفردي المشتق حوكمياً</Label>
               <Textarea value={iepGoal} onChange={(e) => setIepGoal(e.target.value)} rows={3} placeholder="مثال: سيُتقن المتعلم استخدام تطبيق المواصلات الذكية باستقلالية في 4 رحلات متتالية..." />
             </div>
             <Button disabled={!canCreate || createObjective.isPending} onClick={() => createObjective.mutate()} className="w-full">

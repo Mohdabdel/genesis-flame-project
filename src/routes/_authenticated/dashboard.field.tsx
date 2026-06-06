@@ -73,7 +73,7 @@ function FieldPage() {
       if (error) throw error;
     },
     onSuccess: () => {
-      toast.success(`تم تسجيل الجلسة — معامل الاستقلالية ${(independenceScore * 100).toFixed(0)}%`);
+      toast.success(`تم تسجيل الجلسة — معامل الاستقلالية الرقمي (IC) ${(independenceScore * 100).toFixed(0)}%`);
       setSteps({});
       qc.invalidateQueries({ queryKey: ["drc"] });
     },
