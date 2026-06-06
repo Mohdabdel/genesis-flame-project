@@ -798,6 +798,7 @@ export type Database = {
         Args: { p_destination_id: string; p_learner_id: number }
         Returns: number
       }
+      check_user_is_admin: { Args: { user_uuid: string }; Returns: boolean }
       evaluate_gateway_routing: {
         Args: { p_learner_id: number }
         Returns: Database["public"]["Enums"]["post_school_track"]
@@ -806,6 +807,7 @@ export type Database = {
         Args: { v_level: Database["public"]["Enums"]["evidence_level"] }
         Returns: number
       }
+      get_user_org: { Args: { user_uuid: string }; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -813,6 +815,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_user_org_admin: { Args: { user_uuid: string }; Returns: boolean }
     }
     Enums: {
       age_band_tier: "0-5" | "6-9" | "10-12" | "13-15" | "16-18" | "18+"
