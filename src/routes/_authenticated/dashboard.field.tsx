@@ -74,11 +74,11 @@ function FieldPage() {
       if (error) throw error;
     },
     onSuccess: () => {
-      toast.success(`تم تسجيل شواهد الأداء الميداني — معامل الاستقلالية (IC) ${(independenceScore * 100).toFixed(0)}%`);
+      toast.success(`تم حفظ شاهد الأداء الميداني بنجاح. — معامل الاستقلالية (IC) ${(independenceScore * 100).toFixed(0)}%`);
       setSteps({});
       qc.invalidateQueries({ queryKey: ["drc"] });
     },
-    onError: (e: any) => toast.error("تعذّر التسجيل: " + e.message),
+    onError: (e: any) => toast.error("لا توجد أهداف جارية للتدريب. أنشئ هدفًا من منشئ الخطة الانتقالية الفردية أولًا. — " + e.message),
   });
 
   return (
