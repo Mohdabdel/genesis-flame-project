@@ -62,24 +62,18 @@ function LandingPage() {
         <div className="mx-auto max-w-3xl">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs text-primary mb-4">
             <ShieldCheck className="h-3.5 w-3.5" />
-            منصة مسار همم الانتقالية — بنية v4
+            منصة مسار همم الانتقالية
           </div>
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl leading-tight">
             مسار همم: <span className="text-primary">بوصلة الانتقال</span> إلى ما بعد المدرسة
             <TransitionHelpAnchor term="مسار همم" className="mr-2 align-middle" />
           </h1>
           <p className="mt-6 text-lg sm:text-xl text-muted-foreground leading-relaxed font-medium">
-            لدعم انتقال الشباب ذوي الإعاقة نحو
-            <span className="text-foreground"> حياة ذات معنى بعد التخرج</span>.
+            لدعم انتقال الشباب ذوي الإعاقة نحو حياة ذات معنى بعد التخرج.
             <TransitionHelpAnchor term="الحياة ذات المعنى بعد التخرج" className="mr-2" />
           </p>
           <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
-            تجعل كل هدف <strong className="text-foreground">خطوة نحو بناء المستقبل</strong> — تربط المنصة بين <strong className="text-foreground">مجالات الحياة بعد المدرسة</strong>،
-            و<strong className="text-foreground">مسارات الانتقال</strong>،
-            و<strong className="text-foreground">محطات التقدم</strong>،
-            و<strong className="text-foreground">الأهداف الفردية</strong>،
-            و<strong className="text-foreground">السيناريوهات الواقعية</strong>؛
-            لتكوين صورة أوضح عن جاهزية المتعلم وخطوات دعمه القادمة.
+            <strong className="text-foreground">تجعل كل هدف خطوة نحو بناء المستقبل</strong> — تربط المنصة بين مجالات الحياة بعد المدرسة، ومسارات الانتقال، ومحطات التقدم، والأهداف الفردية، والسيناريوهات الواقعية؛ لتكوين صورة أوضح عن جاهزية المتعلم وخطوات دعمه القادمة.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link to="/auth">

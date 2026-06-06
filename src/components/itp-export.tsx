@@ -70,7 +70,10 @@ export function ITPExportButton({
         <DialogContent className="max-w-5xl max-h-[92vh] overflow-y-auto p-0 itp-no-print">
           <DialogHeader className="sticky top-0 z-10 bg-background border-b p-4 itp-no-print">
             <div className="flex items-center justify-between gap-3 flex-wrap">
-              <DialogTitle>وثيقة الخطة الانتقالية الفردية (ITP)</DialogTitle>
+              <div>
+                <DialogTitle>وثيقة الخطة الانتقالية الفردية (ITP)</DialogTitle>
+                <p className="text-xs text-muted-foreground mt-1">تجميع رسمي لأهداف المتعلم، وشواهد الأداء، ومؤشرات الجاهزية، وتوصية المسار بعد التخرج.</p>
+              </div>
               <Button onClick={() => window.print()} className="gap-2">
                 <Printer className="h-4 w-4" /> طباعة / حفظ PDF
               </Button>
@@ -191,8 +194,8 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
       <header className="border-b-2 border-black pb-4 mb-6 break-inside-avoid">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">وثيقة الخطة الانتقالية الفردية للمتعلم</h1>
-            <p className="text-sm opacity-70" dir="ltr">ITP Official Document — Individualized Transition Program — Certified Record</p>
+            <h1 className="text-2xl font-bold tracking-tight">وثيقة الخطة الانتقالية الفردية (ITP)</h1>
+            <p className="text-sm opacity-70">تجميع رسمي لأهداف المتعلم، وشواهد الأداء، ومؤشرات الجاهزية، وتوصية المسار بعد التخرج.</p>
           </div>
           <div className="text-left text-xs space-y-0.5">
             <p><span className="opacity-60">رقم الوثيقة:</span> <span className="font-mono font-semibold">{docId}</span></p>

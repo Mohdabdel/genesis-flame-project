@@ -87,10 +87,9 @@ function DashboardHome() {
               <Sparkles className="h-7 w-7 text-primary" />
             </div>
             <div className="space-y-2">
-              <h2 className="text-2xl font-bold">لم تنضم لأي مؤسسة بعد</h2>
+              <h2 className="text-2xl font-bold">لم يتم ربط حسابك بمؤسسة بعد</h2>
               <p className="text-muted-foreground">
-                فعّل المؤسسة التجريبية لاستكشاف بوابة الانتقال إلى ما بعد المدرسة،
-                مع ثلاثة متعلمين افتراضيين جاهزين على خط الجاهزية.
+                أنشئ مؤسسة نموذجية لتجربة مسار همم مع ملفات متعلمين، وخطط انتقال، وسيناريوهات واقعية، وشواهد أداء ميدانية.
               </p>
             </div>
             <Button
@@ -100,19 +99,18 @@ function DashboardHome() {
               onClick={handleSeed}
             >
               {seeding ? <Loader2 className="h-5 w-5 animate-spin" /> : <PlayCircle className="h-5 w-5" />}
-              إنشاء مؤسسة تجريبية
-              <span className="opacity-70 text-xs hidden sm:inline" dir="ltr">/ Create Demo Institution</span>
+              إنشاء مؤسسة نموذجية للتجربة
             </Button>
 
             <div className="rounded-xl border bg-card p-4 text-right space-y-3">
               <div className="flex items-center gap-2 text-sm font-semibold">
                 <PlayCircle className="h-4 w-4 text-primary" />
-                جولة المتعلم الافتراضي خلال 60 ثانية
+                جولة متعلم نموذجي خلال 60 ثانية
               </div>
               <ol className="space-y-2 text-sm text-muted-foreground">
-                <Step n={1} text="اختر متعلماً افتراضياً من منشئ الخطة الانتقالية الفردية." />
+                <Step n={1} text="اختر ملف متعلم نموذجي من منشئ الخطة الانتقالية الفردية." />
                 <Step n={2} text="سجّل شاهد أداء ميداني داخل سيناريو واقعي." />
-                <Step n={3} text="افتح بوابة الانتقال إلى ما بعد المدرسة لمشاهدة معاملات DRC وتوصية المسار لحظياً." />
+                <Step n={3} text="افتح بوابة الانتقال لمراجعة الجاهزية والتوصية بالمسار بعد التخرج." />
               </ol>
             </div>
 
@@ -126,22 +124,22 @@ function DashboardHome() {
   }
 
   const statCards = [
-    { label: "محطات الجاهزية النشطة", value: stats.assessmentCount, icon: ClipboardList, color: "text-primary" },
-    { label: "وثائق الانتقال (ITP)", value: stats.projectCount, icon: FolderKanban, color: "text-chart-2" },
+    { label: "ملفات التقييمات النشطة", value: stats.assessmentCount, icon: ClipboardList, color: "text-primary" },
+    { label: "وثائق الخطة الانتقالية الفردية (ITP)", value: stats.projectCount, icon: FolderKanban, color: "text-chart-2" },
     { label: "المهام المعلقة", value: stats.taskCount, icon: AlertCircle, color: "text-destructive" },
-    { label: "متوسط الجاهزية التراكمية (DRC)", value: "72%", icon: TrendingUp, color: "text-success" },
+    { label: "متوسط معامل الجاهزية الانتقالية (DRC)", value: "72%", icon: TrendingUp, color: "text-success" },
   ];
 
   return (
     <div className="space-y-6">
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">لوحة التحكم</h1>
-          <p className="text-muted-foreground">نظرة عامة على أداء مؤسستك في الانتقال إلى الحياة المستقلة.</p>
+          <h1 className="text-2xl font-bold tracking-tight">لوحة القيادة</h1>
+          <p className="text-muted-foreground">نظرة عامة على جاهزية المتعلمين عبر مجالات الحياة بعد المدرسة.</p>
         </div>
         <div className="flex gap-2 flex-wrap">
-          <Link to="/dashboard/planner"><Button variant="outline" size="sm" className="gap-2"><Compass className="h-4 w-4" /> اختر متعلماً افتراضياً</Button></Link>
-          <Link to="/dashboard/field"><Button variant="outline" size="sm" className="gap-2"><Activity className="h-4 w-4" /> سجّل تتبّع ميداني</Button></Link>
+          <Link to="/dashboard/planner"><Button variant="outline" size="sm" className="gap-2"><Compass className="h-4 w-4" /> اختر متعلمًا نموذجيًا</Button></Link>
+          <Link to="/dashboard/field"><Button variant="outline" size="sm" className="gap-2"><Activity className="h-4 w-4" /> سجّل شاهد أداء ميداني</Button></Link>
           <Link to="/dashboard/engine"><Button size="sm" className="gap-2"><Sparkles className="h-4 w-4" /> افتح بوابة الانتقال</Button></Link>
         </div>
       </div>
@@ -150,7 +148,7 @@ function DashboardHome() {
         <CardContent className="flex items-start gap-3 py-4 text-sm">
           <PlayCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
           <p>
-            جولة الـ60 ثانية: <strong>المتعلم الافتراضي</strong> ← <strong>تتبّع ميداني</strong> ← <strong>قراءة DRC الحية</strong>.
+            جولة الـ60 ثانية: <strong>متعلم نموذجي</strong> ← <strong>شاهد أداء ميداني</strong> ← <strong>قراءة معامل الجاهزية الانتقالية (DRC)</strong>.
           </p>
         </CardContent>
       </Card>
@@ -174,7 +172,7 @@ function DashboardHome() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <FolderKanban className="h-5 w-5 text-primary" />
-              آخر وثائق الانتقال (ITP)
+              آخر وثائق الخطة الانتقالية الفردية (ITP)
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -197,7 +195,7 @@ function DashboardHome() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <ClipboardList className="h-5 w-5 text-primary" />
-              آخر محطات الجاهزية
+              آخر ملفات التقييمات
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
