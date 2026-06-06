@@ -242,6 +242,59 @@ function PlannerPage() {
             </Button>
           </CardContent>
         </Card>
+
+        {/* Mastery Tracker */}
+        {selectedLearner && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2"><Trophy className="h-5 w-5 text-primary" />متتبّع الإتقان والتعميم السياقي</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {masteryLoading && (
+                <div className="flex items-center justify-center py-6 text-muted-foreground text-sm">
+                  <Loader2 className="h-4 w-4 animate-spin ml-2" /> جارٍ تحميل سجلات الأدلة...
+                </div>
+              )}
+              {!masteryLoading && (masteryObjectives ?? []).length === 0 && (
+                <p className="text-sm text-muted-foreground text-center py-4">لا توجد أهداف نشطة لهذا المتعلم.</p>
+              )}
+              {(masteryObjectives ?? []).map((o: any) => {
+                const records = (o.evidence_records ?? []) as any[];
+                const sorted = [...records].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+                const last3 = sorted.slice(0, 3);
+                const threeStableHigh = last3.length === 3 && last3.every((r) => Number(r.independence_score) >= 0.90);
+                const distinctScenarios = new Set(
+                  records
+                    .filter((r) => Number(r.independence_score) >= 0.90)
+                    .map((r) => r.context_verification_metadata?.scenario_id)
+                    .filter(Boolean),
+                );
+                const mastered = threeStableHigh && distinctScenarios.size >= 2;
+                return (
+                  <div key={o.objective_id} className="rounded-lg border p-3 space-y-2">
+                    <div className="flex items-start justify-between gap-3">
+                      <p className="text-sm font-medium flex-1">{o.generated_iep_goal_ar}</p>
+                      {mastered ? (
+                        <Badge className="bg-success text-success-foreground shrink-0">
+                          <Trophy className="h-3 w-3 ml-1" /> متقَن
+                        </Badge>
+                      ) : (
+                        <Badge variant="secondary" className="shrink-0">ناشئ</Badge>
+                      )}
+                    </div>
+                    <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
+                      <span>محاولات: {records.length}</span>
+                      <span>•</span>
+                      <span>آخر 3 ≥ 90%: {threeStableHigh ? "✓" : "—"}</span>
+                      <span>•</span>
+                      <span>سياقات متمايزة: {distinctScenarios.size}/2</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );
