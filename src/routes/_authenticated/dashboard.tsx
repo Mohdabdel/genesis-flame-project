@@ -26,12 +26,10 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 const navItems = [
   { label: "لوحة التحكم", icon: LayoutDashboard, href: "/dashboard" },
   { label: "محرك الانتقال", icon: Compass, href: "/dashboard/engine" },
-  { label: "ورشة المخطّط", icon: Network, href: "/dashboard/planner" },
+  { label: "ورشة المخطط التأهيلي", icon: Network, href: "/dashboard/planner" },
   { label: "المراقبة الميدانية", icon: Activity, href: "/dashboard/field" },
   { label: "محطات الجاهزية والسيناريوهات", icon: ClipboardList, href: "/dashboard/assessments" },
-  { label: "محطات الجاهزية (المشاريع)", icon: FolderKanban, href: "/dashboard/projects" },
-  { label: "ورشة المخطط التأهيلي", icon: GraduationCap, href: "/dashboard/training" },
-  { label: "وثائق الانتقال المعتمدة (ITP)", icon: ClipboardList, href: "/dashboard/training#itp" },
+  { label: "وثائق الانتقال المعتمدة (ITP)", icon: FolderKanban, href: "/dashboard/projects" },
   { label: "الإعدادات", icon: Settings, href: "/dashboard/settings" },
 ];
 
