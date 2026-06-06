@@ -58,22 +58,20 @@ export function ITPExportButton({
         onClick={() => setOpen(true)}
         className={`gap-2 ${!enabled ? "opacity-50" : ""}`}
         title={
-          !selectedLearner
-            ? "اختر ملف متعلم أولاً"
-            : hasActivePlan === false
-              ? "لا توجد أهداف فردية ضمن الخطة الانتقالية نشطة لهذا المتعلم"
-              : undefined
+          !enabled
+            ? "لا يمكن استخراج الوثيقة قبل اختيار متعلم ووجود خطة انتقالية نشطة. أضف هدفًا فرديًا وشاهد أداء ميداني واحدًا على الأقل قبل استخراج الوثيقة."
+            : undefined
         }
       >
         <FileDown className="h-4 w-4" />
-        استخراج وثيقة الخطة الانتقالية الفردية (ITP)
+        استخراج وثيقة الخطة الانتقالية الفردية
         <span className="hidden md:inline opacity-70" dir="ltr">/ Export Individual Transition Plan</span>
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-5xl max-h-[92vh] overflow-y-auto p-0 itp-no-print">
           <DialogHeader className="sticky top-0 z-10 bg-background border-b p-4 itp-no-print">
             <div className="flex items-center justify-between gap-3 flex-wrap">
-              <DialogTitle>وثيقة الخطة الانتقالية الفردية للمتعلم (ITP Official Document)</DialogTitle>
+              <DialogTitle>وثيقة الخطة الانتقالية الفردية (ITP)</DialogTitle>
               <Button onClick={() => window.print()} className="gap-2">
                 <Printer className="h-4 w-4" /> طباعة / حفظ PDF
               </Button>
