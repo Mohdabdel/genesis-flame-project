@@ -14,6 +14,7 @@ import { ChevronDown, ChevronLeft, Network, UserPlus, Sparkles, CheckCircle2, Tr
 import { toast } from "sonner";
 import type { Database } from "@/integrations/supabase/types";
 import { GovernanceAuditPanel } from "@/components/governance-audit-panel";
+import { ITPExportButton } from "@/components/itp-export";
 
 type AgeBand = Database["public"]["Enums"]["age_band_tier"];
 
@@ -128,7 +129,7 @@ function PlannerPage() {
   });
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
+    <div className="grid gap-6 lg:grid-cols-[300px_1fr] itp-no-print">
       {/* Sidebar tree */}
       <Card className="lg:sticky lg:top-4 self-start max-h-[calc(100vh-2rem)] overflow-auto">
         <CardHeader>
@@ -168,9 +169,12 @@ function PlannerPage() {
       </Card>
 
       <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">ورشة المخطّط التربوي</h1>
-          <p className="text-muted-foreground">حدّد المتعلم، ثم أنشئ هدفاً فردياً متسلسلاً عبر الهيكل الحاكم.</p>
+        <div className="flex items-start justify-between gap-3 flex-wrap">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">ورشة المخطّط التربوي</h1>
+            <p className="text-muted-foreground">حدّد المتعلم، ثم أنشئ هدفاً فردياً متسلسلاً عبر الهيكل الحاكم.</p>
+          </div>
+          <ITPExportButton learnerId={selectedLearner} />
         </div>
 
         {/* Learner picker */}
