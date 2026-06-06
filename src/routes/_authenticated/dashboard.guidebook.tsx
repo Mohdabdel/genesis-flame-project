@@ -13,9 +13,9 @@ function GuidebookPage() {
       <header>
         <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2">
           <BookOpen className="h-6 w-6 text-primary" />
-          دليل التطبيق والتوجيه
+          دليل التطبيق والإرشاد
           <span className="text-sm text-muted-foreground font-normal" dir="ltr">
-            / Platform Resource Hub
+            / مركز موارد المنصة
           </span>
         </h1>
         <p className="text-muted-foreground mt-1 text-sm">

@@ -65,7 +65,6 @@ export function ITPExportButton({
       >
         <FileDown className="h-4 w-4" />
         استخراج وثيقة الخطة الانتقالية الفردية
-        <span className="hidden md:inline opacity-70" dir="ltr">/ Export Individual Transition Plan</span>
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-5xl max-h-[92vh] overflow-y-auto p-0 itp-no-print">
