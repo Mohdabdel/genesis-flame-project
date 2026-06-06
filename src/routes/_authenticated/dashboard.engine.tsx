@@ -168,7 +168,7 @@ function EnginePage() {
           <ITPExportButton learnerId={learnerId} />
           <Select value={learnerId} onValueChange={setLearnerId}>
             <SelectTrigger>
-              <SelectValue placeholder="اختر متعلماً لقراءة جاهزيته" />
+              <SelectValue placeholder="اختر متعلمًا لبدء مراجعة الجاهزية الانتقالية." />
             </SelectTrigger>
             <SelectContent>
               {learners?.map((l: any) => (
