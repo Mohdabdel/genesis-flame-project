@@ -225,3 +225,14 @@ function DashboardHome() {
 function cn(...inputs: (string | undefined | false)[]) {
   return inputs.filter(Boolean).join(" ");
 }
+
+function Step({ n, text }: { n: number; text: string }) {
+  return (
+    <li className="flex items-start gap-2">
+      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-semibold">
+        {n}
+      </span>
+      <span className="pt-0.5">{text}</span>
+    </li>
+  );
+}
