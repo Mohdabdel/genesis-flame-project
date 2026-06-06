@@ -14,6 +14,38 @@ export type Database = {
   }
   public: {
     Tables: {
+      age_expectations: {
+        Row: {
+          age_band: Database["public"]["Enums"]["age_band_tier"]
+          expectation_id: number
+          expected_behavior_ar: string
+          expected_behavior_en: string
+          station_id: string | null
+        }
+        Insert: {
+          age_band: Database["public"]["Enums"]["age_band_tier"]
+          expectation_id?: number
+          expected_behavior_ar: string
+          expected_behavior_en: string
+          station_id?: string | null
+        }
+        Update: {
+          age_band?: Database["public"]["Enums"]["age_band_tier"]
+          expectation_id?: number
+          expected_behavior_ar?: string
+          expected_behavior_en?: string
+          station_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "age_expectations_station_id_fkey"
+            columns: ["station_id"]
+            isOneToOne: false
+            referencedRelation: "transition_stations"
+            referencedColumns: ["station_id"]
+          },
+        ]
+      }
       assessment_questions: {
         Row: {
           assessment_id: string
@@ -147,6 +179,152 @@ export type Database = {
           },
         ]
       }
+      destinations: {
+        Row: {
+          destination_id: string
+          engine_function: string
+          name_ar: string
+          name_en: string
+        }
+        Insert: {
+          destination_id: string
+          engine_function: string
+          name_ar: string
+          name_en: string
+        }
+        Update: {
+          destination_id?: string
+          engine_function?: string
+          name_ar?: string
+          name_en?: string
+        }
+        Relationships: []
+      }
+      evidence_records: {
+        Row: {
+          context_verification_metadata: Json
+          evaluator_id: string
+          evidence_id: number
+          independence_score: number
+          objective_id: number | null
+          task_analysis_payload: Json
+          timestamp: string | null
+        }
+        Insert: {
+          context_verification_metadata?: Json
+          evaluator_id: string
+          evidence_id?: number
+          independence_score: number
+          objective_id?: number | null
+          task_analysis_payload?: Json
+          timestamp?: string | null
+        }
+        Update: {
+          context_verification_metadata?: Json
+          evaluator_id?: string
+          evidence_id?: number
+          independence_score?: number
+          objective_id?: number | null
+          task_analysis_payload?: Json
+          timestamp?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evidence_records_objective_id_fkey"
+            columns: ["objective_id"]
+            isOneToOne: false
+            referencedRelation: "individual_objectives"
+            referencedColumns: ["objective_id"]
+          },
+        ]
+      }
+      indicators: {
+        Row: {
+          description_ar: string
+          description_en: string
+          evidence_tag: Database["public"]["Enums"]["evidence_level"]
+          expectation_id: number | null
+          indicator_id: string
+          mastery_logic_rules: Json
+        }
+        Insert: {
+          description_ar: string
+          description_en: string
+          evidence_tag?: Database["public"]["Enums"]["evidence_level"]
+          expectation_id?: number | null
+          indicator_id: string
+          mastery_logic_rules?: Json
+        }
+        Update: {
+          description_ar?: string
+          description_en?: string
+          evidence_tag?: Database["public"]["Enums"]["evidence_level"]
+          expectation_id?: number | null
+          indicator_id?: string
+          mastery_logic_rules?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "indicators_expectation_id_fkey"
+            columns: ["expectation_id"]
+            isOneToOne: false
+            referencedRelation: "age_expectations"
+            referencedColumns: ["expectation_id"]
+          },
+        ]
+      }
+      individual_objectives: {
+        Row: {
+          created_at: string | null
+          generated_iep_goal_ar: string
+          indicator_id: string | null
+          is_active: boolean | null
+          learner_id: number | null
+          objective_id: number
+          target_scenario_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          generated_iep_goal_ar: string
+          indicator_id?: string | null
+          is_active?: boolean | null
+          learner_id?: number | null
+          objective_id?: number
+          target_scenario_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          generated_iep_goal_ar?: string
+          indicator_id?: string | null
+          is_active?: boolean | null
+          learner_id?: number | null
+          objective_id?: number
+          target_scenario_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "individual_objectives_indicator_id_fkey"
+            columns: ["indicator_id"]
+            isOneToOne: false
+            referencedRelation: "indicators"
+            referencedColumns: ["indicator_id"]
+          },
+          {
+            foreignKeyName: "individual_objectives_learner_id_fkey"
+            columns: ["learner_id"]
+            isOneToOne: false
+            referencedRelation: "learners"
+            referencedColumns: ["learner_id"]
+          },
+          {
+            foreignKeyName: "individual_objectives_target_scenario_id_fkey"
+            columns: ["target_scenario_id"]
+            isOneToOne: false
+            referencedRelation: "scenarios"
+            referencedColumns: ["scenario_id"]
+          },
+        ]
+      }
       invitations: {
         Row: {
           accepted_at: string | null
@@ -191,6 +369,39 @@ export type Database = {
           },
         ]
       }
+      learners: {
+        Row: {
+          created_at: string | null
+          current_age_band: Database["public"]["Enums"]["age_band_tier"]
+          date_of_birth: string
+          first_name: string
+          last_name: string
+          learner_id: number
+          owner_id: string
+          support_intensity_profile: Json
+        }
+        Insert: {
+          created_at?: string | null
+          current_age_band: Database["public"]["Enums"]["age_band_tier"]
+          date_of_birth: string
+          first_name: string
+          last_name: string
+          learner_id?: number
+          owner_id?: string
+          support_intensity_profile?: Json
+        }
+        Update: {
+          created_at?: string | null
+          current_age_band?: Database["public"]["Enums"]["age_band_tier"]
+          date_of_birth?: string
+          first_name?: string
+          last_name?: string
+          learner_id?: number
+          owner_id?: string
+          support_intensity_profile?: Json
+        }
+        Relationships: []
+      }
       organizations: {
         Row: {
           created_at: string
@@ -229,6 +440,38 @@ export type Database = {
           website?: string | null
         }
         Relationships: []
+      }
+      pathways: {
+        Row: {
+          deconstruction_text: string
+          destination_id: string | null
+          pathway_id: string
+          title_ar: string
+          title_en: string
+        }
+        Insert: {
+          deconstruction_text: string
+          destination_id?: string | null
+          pathway_id: string
+          title_ar: string
+          title_en: string
+        }
+        Update: {
+          deconstruction_text?: string
+          destination_id?: string | null
+          pathway_id?: string
+          title_ar?: string
+          title_en?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pathways_destination_id_fkey"
+            columns: ["destination_id"]
+            isOneToOne: false
+            referencedRelation: "destinations"
+            referencedColumns: ["destination_id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -383,6 +626,30 @@ export type Database = {
           },
         ]
       }
+      scenarios: {
+        Row: {
+          context_library_type: string
+          scenario_id: string
+          task_analysis_template: Json
+          title_ar: string
+          title_en: string
+        }
+        Insert: {
+          context_library_type: string
+          scenario_id: string
+          task_analysis_template?: Json
+          title_ar: string
+          title_en: string
+        }
+        Update: {
+          context_library_type?: string
+          scenario_id?: string
+          task_analysis_template?: Json
+          title_ar?: string
+          title_en?: string
+        }
+        Relationships: []
+      }
       training_modules: {
         Row: {
           category: string
@@ -469,6 +736,41 @@ export type Database = {
           },
         ]
       }
+      transition_stations: {
+        Row: {
+          functional_description: string
+          name_ar: string
+          name_en: string
+          pathway_id: string | null
+          progression_logic_json: Json
+          station_id: string
+        }
+        Insert: {
+          functional_description: string
+          name_ar: string
+          name_en: string
+          pathway_id?: string | null
+          progression_logic_json?: Json
+          station_id: string
+        }
+        Update: {
+          functional_description?: string
+          name_ar?: string
+          name_en?: string
+          pathway_id?: string | null
+          progression_logic_json?: Json
+          station_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transition_stations_pathway_id_fkey"
+            columns: ["pathway_id"]
+            isOneToOne: false
+            referencedRelation: "pathways"
+            referencedColumns: ["pathway_id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           id: string
@@ -501,7 +803,9 @@ export type Database = {
       }
     }
     Enums: {
+      age_band_tier: "0-5" | "6-9" | "10-12" | "13-15" | "16-18" | "18+"
       app_role: "admin" | "consultant" | "user"
+      evidence_level: "Evidence-Based" | "Research-Based" | "Promising"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -629,7 +933,9 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      age_band_tier: ["0-5", "6-9", "10-12", "13-15", "16-18", "18+"],
       app_role: ["admin", "consultant", "user"],
+      evidence_level: ["Evidence-Based", "Research-Based", "Promising"],
     },
   },
 } as const
