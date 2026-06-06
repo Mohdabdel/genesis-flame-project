@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
 import { AlertTriangle, Compass, Target, Users, Sparkles, ShieldAlert, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
+import { GovernanceAuditPanel } from "@/components/governance-audit-panel";
 
 export const Route = createFileRoute("/_authenticated/dashboard/engine")({
   component: EnginePage,
