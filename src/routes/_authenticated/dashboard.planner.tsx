@@ -300,6 +300,8 @@ function PlannerPage() {
             </CardContent>
           </Card>
         )}
+
+        <GovernanceAuditPanel learnerId={selectedLearner} />
       </div>
     </div>
   );
