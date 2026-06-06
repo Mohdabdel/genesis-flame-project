@@ -20,8 +20,12 @@ export const Route = createFileRoute("/_authenticated/dashboard/planner")({
   component: PlannerPage,
 });
 
-function computeAgeBand(dob: string): AgeBand {
-  const age = (Date.now() - new Date(dob).getTime()) / (365.25 * 24 * 3600 * 1000);
+function computeAgeBand(dob: string | null | undefined): AgeBand | null {
+  if (!dob) return null;
+  const t = new Date(dob).getTime();
+  if (Number.isNaN(t)) return null;
+  const age = (Date.now() - t) / (365.25 * 24 * 3600 * 1000);
+  if (age < 0) return null;
   if (age < 6) return "0-5";
   if (age < 10) return "6-9";
   if (age < 13) return "10-12";
@@ -190,8 +194,8 @@ function PlannerPage() {
             </Select>
             {currentLearner && (
               <div className="flex items-center gap-3 flex-wrap rounded-lg bg-muted/40 p-3">
-                <Badge variant="secondary">تاريخ الميلاد: {currentLearner.date_of_birth}</Badge>
-                <Badge>الفئة العمرية: {ageBand}</Badge>
+                <Badge variant="secondary">تاريخ الميلاد: {currentLearner.date_of_birth ?? "غير محدّد"}</Badge>
+                <Badge>الفئة العمرية: {ageBand ?? "غير متاحة"}</Badge>
               </div>
             )}
           </CardContent>
@@ -320,11 +324,13 @@ function CreateLearnerForm({ onDone }: { onDone: () => void }) {
   const [dob, setDob] = useState("");
   const submit = async () => {
     if (!first || !last || !dob) return toast.error("جميع الحقول مطلوبة");
+    const band = computeAgeBand(dob);
+    if (!band) return toast.error("تاريخ ميلاد غير صالح");
     const { error } = await supabase.from("learners").insert({
       first_name: first,
       last_name: last,
       date_of_birth: dob,
-      current_age_band: computeAgeBand(dob),
+      current_age_band: band,
     });
     if (error) return toast.error(error.message);
     toast.success("تمت إضافة المتعلم");
