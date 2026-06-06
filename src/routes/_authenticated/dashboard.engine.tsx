@@ -332,6 +332,8 @@ function EnginePage() {
           ))}
         </CardContent>
       </Card>
+
+      <GovernanceAuditPanel learnerId={learnerId} />
     </div>
   );
 }
