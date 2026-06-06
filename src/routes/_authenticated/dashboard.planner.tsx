@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { ChevronDown, ChevronLeft, Network, UserPlus, Sparkles, CheckCircle2 } from "lucide-react";
+import { ChevronDown, ChevronLeft, Network, UserPlus, Sparkles, CheckCircle2, Trophy, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import type { Database } from "@/integrations/supabase/types";
 
@@ -105,6 +105,21 @@ function PlannerPage() {
       qc.invalidateQueries({ queryKey: ["objectives-cohort"] });
     },
     onError: (e: any) => toast.error("تعذّر إنشاء الهدف: " + e.message),
+  });
+
+  // Mastery tracker: load objectives + recent evidence for the active learner
+  const { data: masteryObjectives, isLoading: masteryLoading } = useQuery({
+    queryKey: ["mastery-objectives", selectedLearner],
+    enabled: !!selectedLearner,
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("individual_objectives")
+        .select("objective_id, generated_iep_goal_ar, target_scenario_id, indicators(description_ar), evidence_records(evidence_id, independence_score, context_verification_metadata, timestamp)")
+        .eq("learner_id", Number(selectedLearner))
+        .eq("is_active", true)
+        .order("created_at", { ascending: false });
+      return data ?? [];
+    },
   });
 
   return (
