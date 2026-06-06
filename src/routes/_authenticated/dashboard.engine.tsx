@@ -159,10 +159,10 @@ function EnginePage() {
         <div>
           <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2">
             <Compass className="h-6 w-6 text-primary" />
-            بوابة الانتقال إلى ما بعد المدرسة — لوحة المشرف
+            بوابة الانتقال إلى ما بعد المدرسة
             <TransitionHelpAnchor term="بوابة الانتقال إلى ما بعد المدرسة" />
           </h1>
-          <p className="text-muted-foreground mt-1">قراءة جاهزية المتعلمين عبر مجالات الحياة بعد المدرسة (D1–D5) وتوجيه توصية مسار الدعم بعد التخرج.</p>
+          <p className="text-muted-foreground mt-1">قراءة جاهزية المتعلمين عبر مجالات الحياة بعد المدرسة.</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap min-w-[240px]">
           <ITPExportButton learnerId={learnerId} />
@@ -213,12 +213,12 @@ function EnginePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Target className="h-5 w-5 text-primary" />
-            بوابة الانتقال إلى ما بعد المدرسة — توصية مسار الدعم بعد التخرج
+            توصية المسار بعد التخرج
             <TransitionHelpAnchor term="توصية مسار الدعم بعد التخرج" />
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {!learnerId && <p className="text-sm text-muted-foreground">اختر متعلماً لعرض التوصية المحسوبة.</p>}
+          {!learnerId && <p className="text-sm text-muted-foreground">اختر متعلمًا لعرض التوصية المقترحة.</p>}
           {learnerId && !inTransitionWindow && (
             <p className="text-sm text-muted-foreground">
               نافذة الانتقال تبدأ من سن 16. عمر هذا المتعلم {learnerAge !== null ? Math.floor(learnerAge) : "—"} — لا توجد توصية بعد.
@@ -253,9 +253,9 @@ function EnginePage() {
         <Card className="border-2 border-dashed bg-muted/20">
           <CardContent className="py-12 text-center space-y-3">
             <Compass className="h-10 w-10 mx-auto text-muted-foreground" />
-            <p className="text-base font-semibold">رادار الجاهزية غير مُفعَّل</p>
+            <p className="text-base font-semibold">لم يتم عرض مؤشرات الجاهزية بعد</p>
             <p className="text-sm text-muted-foreground max-w-xl mx-auto leading-relaxed">
-              يرجى اختيار ملف المتعلم لتنشيط رادار الجاهزية وحساب معامل الجاهزية الانتقالية (DRC) لمجالات الحياة بعد المدرسة (D1–D5) لحظياً.
+              اختر متعلمًا لبدء مراجعة الجاهزية الانتقالية وحساب معاملات الجاهزية الانتقالية (DRC) لمجالات الحياة بعد المدرسة (D1–D5) لحظيًا.
             </p>
             <div className="flex justify-center gap-2 flex-wrap pt-2">
               {destinations?.map((d: any) => (
@@ -315,6 +315,9 @@ function EnginePage() {
 
       {/* Cohort metrics */}
       <div className="grid gap-4 md:grid-cols-3">
+        <div className="md:col-span-3 -mb-2">
+          <p className="text-sm font-semibold text-muted-foreground">معاملات الجاهزية الانتقالية (DRC)</p>
+        </div>
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2"><Users className="h-4 w-4" />المتعلمون</CardTitle>
@@ -346,7 +349,7 @@ function EnginePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <AlertTriangle className="h-5 w-5 text-warning" />
-            سجل تنبيهات الذكاء النسقي
+            تنبيهات جودة الخطة
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
