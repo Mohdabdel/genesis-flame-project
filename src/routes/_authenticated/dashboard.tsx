@@ -24,14 +24,15 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 });
 
 const navItems = [
-  { label: "لوحة التحكم", icon: LayoutDashboard, href: "/dashboard" },
-  { label: "محرك الانتقال", icon: Compass, href: "/dashboard/engine" },
-  { label: "ورشة المخطط التأهيلي", icon: Network, href: "/dashboard/planner" },
-  { label: "المراقبة الميدانية", icon: Activity, href: "/dashboard/field" },
-  { label: "محطات الجاهزية والسيناريوهات", icon: ClipboardList, href: "/dashboard/assessments" },
-  { label: "وثائق الخطة الانتقالية الفردية (ITP)", icon: FolderKanban, href: "/dashboard/projects" },
+  { label: "لوحة القيادة", icon: LayoutDashboard, href: "/dashboard" },
+  { label: "بوابة الانتقال إلى ما بعد المدرسة", icon: Compass, href: "/dashboard/engine" },
+  { label: "منشئ الخطة الانتقالية الفردية", icon: Network, href: "/dashboard/planner" },
+  { label: "شواهد الأداء الميداني", icon: Activity, href: "/dashboard/field" },
+  { label: "محطات التقدم والسيناريوهات الواقعية", icon: ClipboardList, href: "/dashboard/assessments" },
+  { label: "وثيقة الخطة الانتقالية الفردية (ITP)", icon: FolderKanban, href: "/dashboard/projects" },
+  { label: "تدريب الفريق والأسرة", icon: BookOpen, href: "/dashboard/training" },
   { label: "دليل التطبيق والتوجيه", icon: BookOpen, href: "/dashboard/guidebook" },
-  { label: "الإعدادات", icon: Settings, href: "/dashboard/settings" },
+  { label: "إعدادات المؤسسة والصلاحيات", icon: Settings, href: "/dashboard/settings" },
 ];
 
 function DashboardLayout() {
