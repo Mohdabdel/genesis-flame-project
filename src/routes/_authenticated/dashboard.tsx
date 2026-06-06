@@ -15,6 +15,7 @@ import {
   Compass,
   Network,
   Activity,
+  BookOpen,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -28,7 +29,8 @@ const navItems = [
   { label: "ورشة المخطط التأهيلي", icon: Network, href: "/dashboard/planner" },
   { label: "المراقبة الميدانية", icon: Activity, href: "/dashboard/field" },
   { label: "محطات الجاهزية والسيناريوهات", icon: ClipboardList, href: "/dashboard/assessments" },
-  { label: "وثائق الانتقال المعتمدة (ITP)", icon: FolderKanban, href: "/dashboard/projects" },
+  { label: "وثائق الخطة الانتقالية الفردية (ITP)", icon: FolderKanban, href: "/dashboard/projects" },
+  { label: "دليل التطبيق والتوجيه", icon: BookOpen, href: "/dashboard/guidebook" },
   { label: "الإعدادات", icon: Settings, href: "/dashboard/settings" },
 ];
 
