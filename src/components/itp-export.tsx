@@ -303,9 +303,9 @@ function ITPDocument({ learnerId }: { learnerId: number }) {
       <section className="mb-6 break-inside-avoid">
         <SectionTitle ar="سجلات الأدلة والتحقق السياقي" en="Evidence & Context Verification Logs" />
         <div className="grid grid-cols-3 gap-3 text-sm">
-          <Stat label="إجمالي المحاولات" value={evidenceStats.trials} />
-          <Stat label="محاولات ≥90% استقلالية" value={evidenceStats.highTrials} />
-          <Stat label="بيئات سيناريوهات متمايزة" value={evidenceStats.uniqueScenarios} />
+          <Stat label="إجمالي المحاولات الموثّقة" value={evidenceStats.trials} />
+          <Stat label="محاولات بمعامل استقلالية رقمي (IC) ≥ 90%" value={evidenceStats.highTrials} />
+          <Stat label="بيئات سيناريوهات متمايزة (تعميم سياقي)" value={evidenceStats.uniqueScenarios} />
         </div>
       </section>
 
