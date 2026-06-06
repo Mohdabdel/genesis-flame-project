@@ -69,7 +69,7 @@ export function GovernanceAuditPanel({ learnerId }: { learnerId?: string | numbe
       const { data } = await supabase
         .from("individual_objectives")
         .select(
-          "objective_id, target_scenario_id, is_active, indicators(indicator_id, age_expectations(station_id, transition_stations(pathway_id, pathways(destination_id)))), scenarios:scenarios!individual_objectives_target_scenario_id_fkey(scenario_id, context_library_type)"
+          "objective_id, target_scenario_id, is_active, indicators(indicator_id, age_expectations(station_id, transition_stations(pathway_id, pathways(destination_id))))"
         )
         .eq("learner_id", id!)
         .eq("is_active", true);
@@ -111,7 +111,7 @@ export function GovernanceAuditPanel({ learnerId }: { learnerId?: string | numbe
     let communityCount = 0;
     let workCount = 0;
     objectives.forEach((o: any) => {
-      const ctx = scenarioMap?.get(o.target_scenario_id) ?? o.scenarios?.context_library_type ?? null;
+      const ctx = scenarioMap?.get(o.target_scenario_id) ?? null;
       if (isCommunityScenario(ctx)) communityCount += 1;
       if (isWorkScenario(ctx)) workCount += 1;
       const destId = o.indicators?.age_expectations?.transition_stations?.pathways?.destination_id;
