@@ -13,6 +13,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { ChevronDown, ChevronLeft, Network, UserPlus, Sparkles, CheckCircle2, Trophy, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import type { Database } from "@/integrations/supabase/types";
+import { GovernanceAuditPanel } from "@/components/governance-audit-panel";
 
 type AgeBand = Database["public"]["Enums"]["age_band_tier"];
 
