@@ -794,6 +794,18 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      calculate_learner_drc: {
+        Args: { p_destination_id: string; p_learner_id: number }
+        Returns: number
+      }
+      evaluate_gateway_routing: {
+        Args: { p_learner_id: number }
+        Returns: Database["public"]["Enums"]["post_school_track"]
+      }
+      get_evidence_weight: {
+        Args: { v_level: Database["public"]["Enums"]["evidence_level"] }
+        Returns: number
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -806,6 +818,13 @@ export type Database = {
       age_band_tier: "0-5" | "6-9" | "10-12" | "13-15" | "16-18" | "18+"
       app_role: "admin" | "consultant" | "user"
       evidence_level: "Evidence-Based" | "Research-Based" | "Promising"
+      post_school_track:
+        | "TRACK_1_COMPETITIVE_EMPLOYMENT"
+        | "TRACK_2_SUPPORTED_ENTREPRENEURSHIP"
+        | "TRACK_3_SUPPORTED_LIVING"
+        | "TRACK_4_CIVIC_HUB_ACCESS"
+        | "TRACK_5_INCLUSIVE_HIGHER_EDUCATION"
+        | "TRACK_6_BLENDED_PROFILE_MATRIX"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -936,6 +955,14 @@ export const Constants = {
       age_band_tier: ["0-5", "6-9", "10-12", "13-15", "16-18", "18+"],
       app_role: ["admin", "consultant", "user"],
       evidence_level: ["Evidence-Based", "Research-Based", "Promising"],
+      post_school_track: [
+        "TRACK_1_COMPETITIVE_EMPLOYMENT",
+        "TRACK_2_SUPPORTED_ENTREPRENEURSHIP",
+        "TRACK_3_SUPPORTED_LIVING",
+        "TRACK_4_CIVIC_HUB_ACCESS",
+        "TRACK_5_INCLUSIVE_HIGHER_EDUCATION",
+        "TRACK_6_BLENDED_PROFILE_MATRIX",
+      ],
     },
   },
 } as const
