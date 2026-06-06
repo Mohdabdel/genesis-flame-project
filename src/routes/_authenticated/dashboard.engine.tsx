@@ -9,6 +9,7 @@ import { useState } from "react";
 import { AlertTriangle, Compass, Target, Users, Sparkles, ShieldAlert, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { GovernanceAuditPanel } from "@/components/governance-audit-panel";
+import { ITPExportButton } from "@/components/itp-export";
 
 export const Route = createFileRoute("/_authenticated/dashboard/engine")({
   component: EnginePage,
@@ -148,7 +149,7 @@ function EnginePage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 itp-no-print">
       <div className="flex items-start justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2">
@@ -157,7 +158,8 @@ function EnginePage() {
           </h1>
           <p className="text-muted-foreground mt-1">قراءة جاهزية المتعلمين عبر الوجهات الخمس وتوجيه مسار ما بعد المدرسة.</p>
         </div>
-        <div className="min-w-[240px]">
+        <div className="flex items-center gap-2 flex-wrap min-w-[240px]">
+          <ITPExportButton learnerId={learnerId} />
           <Select value={learnerId} onValueChange={setLearnerId}>
             <SelectTrigger>
               <SelectValue placeholder="اختر متعلماً لقراءة جاهزيته" />
