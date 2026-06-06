@@ -44,11 +44,13 @@ function AuthPage() {
                 <TabsTrigger value="login">تسجيل الدخول</TabsTrigger>
                 <TabsTrigger value="register">إنشاء حساب</TabsTrigger>
               </TabsList>
-              <TabsContent value="login" className="mt-4">
+              <TabsContent value="login" className="mt-4 space-y-4">
                 <LoginForm />
+                <GoogleAuthButton />
               </TabsContent>
-              <TabsContent value="register" className="mt-4">
+              <TabsContent value="register" className="mt-4 space-y-4">
                 <RegisterForm />
+                <GoogleAuthButton />
               </TabsContent>
             </Tabs>
           </CardContent>
