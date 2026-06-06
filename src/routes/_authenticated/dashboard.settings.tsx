@@ -100,7 +100,7 @@ function SettingsPage() {
                 id="jobTitle"
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
-                placeholder="مدير تقنية المعلومات"
+                placeholder="مشرف تربوي"
               />
             </div>
             <div className="space-y-2">
@@ -209,15 +209,15 @@ function CreateOrgForm() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label>اسم المؤسسة</Label>
-          <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="شركة الابتكار" />
+          <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="مركز همم للتأهيل الانتقالي" />
         </div>
         <div className="space-y-2">
           <Label>المجال</Label>
-          <Input value={industry} onChange={(e) => setIndustry(e.target.value)} placeholder="تقنية المعلومات" />
+          <Input value={industry} onChange={(e) => setIndustry(e.target.value)} placeholder="التأهيل الانتقالي وخدمات ذوي الإعاقة" />
         </div>
         <div className="space-y-2 sm:col-span-2">
           <Label>حجم المؤسسة</Label>
-          <Input value={size} onChange={(e) => setSize(e.target.value)} placeholder="50-200 موظف" />
+          <Input value={size} onChange={(e) => setSize(e.target.value)} placeholder="50-200 عضو فريق" />
         </div>
       </div>
       <Button

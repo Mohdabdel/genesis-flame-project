@@ -84,8 +84,8 @@ function AssessmentsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">ملف التقييمات والملف الانتقالي</h1>
-          <p className="text-muted-foreground">إدارة تقييمات الجاهزية الانتقالية، ونتائج أدوات التقييم، وملف المتعلم الداعم للخطة الانتقالية الفردية.</p>
+          <h1 className="text-2xl font-bold tracking-tight">ملف التقييمات والجاهزية الانتقالية</h1>
+          <p className="text-muted-foreground">إدارة تقييمات الجاهزية الانتقالية ونتائج أدوات التقييم الداعمة للخطة الانتقالية الفردية.</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>

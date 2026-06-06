@@ -25,13 +25,13 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 
 const navItems = [
   { label: "لوحة القيادة", icon: LayoutDashboard, href: "/dashboard" },
-  { label: "بوابة الانتقال إلى ما بعد المدرسة", icon: Compass, href: "/dashboard/engine" },
+  { label: "بوابة الانتقال لما بعد المدرسة", icon: Compass, href: "/dashboard/engine" },
   { label: "منشئ الخطة الانتقالية الفردية", icon: Network, href: "/dashboard/planner" },
-  { label: "شواهد الأداء الميداني", icon: Activity, href: "/dashboard/field" },
+  { label: "ملاحظات الاداء فى الحياة اليومية", icon: Activity, href: "/dashboard/field" },
   { label: "محطات التقدم والسيناريوهات الواقعية", icon: ClipboardList, href: "/dashboard/assessments" },
   { label: "وثيقة الخطة الانتقالية الفردية (ITP)", icon: FolderKanban, href: "/dashboard/projects" },
   { label: "تدريب الفريق والأسرة", icon: BookOpen, href: "/dashboard/training" },
-  { label: "دليل التطبيق والتوجيه", icon: BookOpen, href: "/dashboard/guidebook" },
+  { label: "دليل التطبيق والإرشاد", icon: BookOpen, href: "/dashboard/guidebook" },
   { label: "إعدادات المؤسسة والصلاحيات", icon: Settings, href: "/dashboard/settings" },
 ];
 

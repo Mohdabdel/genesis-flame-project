@@ -86,10 +86,10 @@ function FieldPage() {
       <div>
         <h1 className="text-xl font-bold tracking-tight flex items-center gap-2 flex-wrap">
           <Activity className="h-5 w-5 text-primary" />
-          ملاحظات الأداء في الحياة اليومية
+          ملاحظات الاداء فى الحياة اليومية
           <TransitionHelpAnchor term="شواهد الأداء الميداني" />
         </h1>
-        <p className="text-sm text-muted-foreground">سجّل أداء المتعلم خطوة بخطوة داخل السيناريو الوظيفي للتدريب، واحسب معامل الاستقلالية بناءً على مستوى الدعم المستخدم.</p>
+        <p className="text-sm text-muted-foreground">سجّل أداء المتعلم خطوة بخطوة داخل السيناريو الواقعي، وحدد مستوى الدعم المستخدم أثناء التنفيذ.</p>
       </div>
 
       <Card>
@@ -98,7 +98,7 @@ function FieldPage() {
         </CardHeader>
         <CardContent className="space-y-3">
           <Select value={objectiveId} onValueChange={(v) => { setObjectiveId(v); setSteps({}); }}>
-            <SelectTrigger className="h-12 text-base"><SelectValue placeholder="اختر هدفًا لتسجيل ملاحظات أداء في الحياة اليومية" /></SelectTrigger>
+            <SelectTrigger className="h-12 text-base"><SelectValue placeholder="اختر هدفًا لتسجيل ملاحظات اداء فى الحياة اليومية" /></SelectTrigger>
             <SelectContent>
               {objectives?.map((o: any) => (
                 <SelectItem key={o.objective_id} value={String(o.objective_id)}>
@@ -180,7 +180,7 @@ function FieldPage() {
                 disabled={completedCount === 0 || submit.isPending}
                 onClick={() => submit.mutate()}
               >
-                {submit.isPending ? "جارٍ التسجيل..." : `حفظ ملاحظات الأداء في الحياة اليومية (${completedCount}/${tasks.length})`}
+                {submit.isPending ? "جارٍ التسجيل..." : `حفظ ملاحظات الاداء فى الحياة اليومية (${completedCount}/${tasks.length})`}
               </Button>
             )}
           </CardContent>
