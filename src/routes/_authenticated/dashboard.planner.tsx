@@ -174,7 +174,10 @@ function PlannerPage() {
             <h1 className="text-2xl font-bold tracking-tight">ورشة المخطّط التربوي</h1>
             <p className="text-muted-foreground">حدّد المتعلم، ثم أنشئ هدفاً فردياً متسلسلاً عبر الهيكل الحاكم.</p>
           </div>
-          <ITPExportButton learnerId={selectedLearner} />
+          <ITPExportButton
+            learnerId={selectedLearner}
+            hasActivePlan={(masteryObjectives ?? []).length > 0}
+          />
         </div>
 
         {/* Learner picker */}
